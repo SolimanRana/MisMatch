@@ -43,7 +43,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 )
 
 probiert mal das:
-python -m pip install > requirements.txt       
+python -m pip install -r requirements.txt
 
 wenn das obere nd geht einfach das hier:
 python -m pip install --upgrade pip
