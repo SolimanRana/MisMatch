@@ -23,6 +23,11 @@ BOTTOMS:
 
 TUTORIAL:
 https://www.mongodb.com/try/download/community -> MongoDB runterladen
+folgendes auswählen:
+install as a service 
+und
+run service as a network service
+dann eig nur mehr next
 
 NEUES TERMINAL ALS ADMIN AUSFÜHREN (am PC selbst ich habe PowerShell verwendet):
 net start MongoDB
