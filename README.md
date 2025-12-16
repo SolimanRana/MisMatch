@@ -42,8 +42,13 @@ python -m venv venv
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 )
 
+probiert mal das:
+python -m pip install > requirements.txt       
+
+wenn das obere nd geht einfach das hier:
 python -m pip install --upgrade pip
 python -m pip install flask pymongo argon2-cffi
+   
 
 APP AUSFÜHREN IM TERMINAL:
 
