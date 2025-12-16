@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MisMatch - Virtual Wardrobe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Mono:wght@400;700&family=Bangers&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-bg: #c4b8a8;
+      --color-beige: #d9d0c3;
+      --color-cream: #e8e2d8;
+      --color-taupe: #a89b8a;
+      --color-brown: #7a6b5a;
+      --color-dark: #4a4035;
+      --color-highlight: #d4a574;
+      --color-pink-muted: #c9a0a0;
+      --color-blue-muted: #8fa5b5;
+      --color-white: #f5f2ed;
+    }
+
+    body {
+      font-family: 'Space Mono', monospace;
+      background: var(--color-bg);
+      color: var(--color-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Subtle texture background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+              radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.15) 0%, transparent 40%),
+              radial-gradient(circle at 80% 70%, rgba(143, 165, 181, 0.1) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      z-index: 100;
+      background: linear-gradient(to bottom, var(--color-bg), transparent);
+    }
+
+    .logo {
+      font-family: 'Bangers', cursive;
+      font-size: 3rem;
+      letter-spacing: 0.05em;
+      color: var(--color-dark);
+      text-decoration: none;
+      text-shadow:
+              3px 3px 0 var(--color-cream),
+              6px 6px 0 var(--color-taupe);
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+
+    .nav-auth {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-auth a {
+      font-family: 'Righteous', cursive;
+      font-size: 1.3rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.3s ease;
+    }
+
+    .nav-auth .login {
+      color: var(--color-dark);
+      padding: 0.8rem 1.5rem;
+      border: 4px solid var(--color-dark);
+      background: transparent;
+    }
+
+    .nav-auth .login:hover {
+      background: var(--color-dark);
+      color: var(--color-cream);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--color-brown);
+    }
+
+    .nav-auth .register {
+      color: var(--color-white);
+      background: var(--color-brown);
+      padding: 0.8rem 1.5rem;
+      border: 4px solid var(--color-dark);
+      box-shadow: 6px 6px 0 var(--color-dark);
+    }
+
+    .nav-auth .register:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--color-dark);
+      background: var(--color-highlight);
+    }
+
+    /* Main Content */
+    main {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Slogan */
+    .slogan {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    .slogan h1 {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: var(--color-dark);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      text-shadow:
+              3px 3px 0 var(--color-cream),
+              6px 6px 0 var(--color-taupe);
+    }
+
+    .slogan h1 span {
+      color: var(--color-brown);
+      display: inline-block;
+      animation: wiggle 1s ease-in-out infinite;
+    }
+
+    .slogan p {
+      font-family: 'Righteous', cursive;
+      font-size: 1.2rem;
+      color: var(--color-dark);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      background: var(--color-cream);
+      display: inline-block;
+      padding: 0.5rem 2rem;
+      border: 3px solid var(--color-dark);
+      transform: rotate(-1deg);
+    }
+
+    /* Showcase Container */
+    .showcase {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    /* Clothing Items - Sides */
+    .clothing-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      opacity: 0;
+      animation: slideIn 0.8s ease-out forwards;
+    }
+
+    .clothing-side.left {
+      animation-delay: 0.3s;
+    }
+
+    .clothing-side.right {
+      animation-delay: 0.5s;
+      animation-name: slideInRight;
+    }
+
+    .clothing-item {
+      width: 130px;
+      height: 140px;
+      background: var(--color-white);
+      border: 4px solid var(--color-dark);
+      box-shadow: 6px 6px 0 var(--color-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .clothing-item:nth-child(1) { background: var(--color-cream); }
+    .clothing-item:nth-child(2) { background: var(--color-pink-muted); }
+    .clothing-item:nth-child(3) { background: var(--color-beige); }
+
+    .clothing-side.right .clothing-item:nth-child(1) { background: var(--color-highlight); }
+    .clothing-side.right .clothing-item:nth-child(2) { background: var(--color-blue-muted); }
+    .clothing-side.right .clothing-item:nth-child(3) { background: var(--color-cream); }
+
+    .clothing-item:hover {
+      transform: translate(-4px, -4px) rotate(3deg);
+      box-shadow: 10px 10px 0 var(--color-dark);
+    }
+
+    .clothing-icon {
+      font-size: 3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .clothing-label {
+      font-family: 'Righteous', cursive;
+      font-size: 0.85rem;
+      color: var(--color-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Preview Container */
+    .preview-container {
+      position: relative;
+      width: 480px;
+      height: 580px;
+      background: var(--color-cream);
+      border: 5px solid var(--color-dark);
+      box-shadow: 12px 12px 0 var(--color-dark);
+      overflow: hidden;
+      opacity: 0;
+      animation: popIn 0.6s ease-out 0.2s forwards;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.2rem;
+      background: var(--color-taupe);
+      border-bottom: 4px solid var(--color-dark);
+    }
+
+    .preview-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .preview-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--color-dark);
+    }
+
+    .preview-dot:nth-child(1) { background: #c97373; }
+    .preview-dot:nth-child(2) { background: #c9b173; }
+    .preview-dot:nth-child(3) { background: #7bc973; }
+
+    .preview-title {
+      font-family: 'Righteous', cursive;
+      color: var(--color-dark);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+    }
+
+    .preview-content {
+      padding: 1.2rem;
+      height: calc(100% - 55px);
+      display: flex;
+      flex-direction: column;
+      background:
+              linear-gradient(90deg, var(--color-beige) 1px, transparent 1px),
+              linear-gradient(var(--color-beige) 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-color: var(--color-cream);
+    }
+
+    /* Mock Dashboard */
+    .mock-nav {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 1rem;
+      border-bottom: 3px dashed var(--color-dark);
+    }
+
+    .mock-nav-item {
+      padding: 0.5rem 1rem;
+      background: var(--color-beige);
+      border: 3px solid var(--color-dark);
+      font-family: 'Righteous', cursive;
+      font-size: 0.75rem;
+      color: var(--color-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mock-nav-item.active {
+      background: var(--color-highlight);
+      color: var(--color-dark);
+      box-shadow: 3px 3px 0 var(--color-dark);
+    }
+
+    .mock-nav-item:hover:not(.active) {
+      transform: translateY(-2px);
+    }
+
+    .mock-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      flex: 1;
+    }
+
+    .mock-item {
+      background: var(--color-white);
+      border: 3px solid var(--color-dark);
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .mock-item:nth-child(1) { background: #e8d8d8; }
+    .mock-item:nth-child(2) { background: #d8e4e8; }
+    .mock-item:nth-child(3) { background: #e8e4d8; }
+    .mock-item:nth-child(4) { background: #d8e8d8; }
+    .mock-item:nth-child(5) { background: #e4d8e8; }
+    .mock-item:nth-child(6) { background: #e8d8e0; }
+    .mock-item:nth-child(7) { background: #d8e8e4; }
+    .mock-item:nth-child(8) { background: #e8e0d8; }
+    .mock-item:nth-child(9) { background: #e0e8d8; }
+
+    .mock-item:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 4px 4px 0 var(--color-dark);
+      z-index: 1;
+    }
+
+    .preview-badge {
+      position: absolute;
+      bottom: 1.2rem;
+      right: 1.2rem;
+      background: var(--color-highlight);
+      color: var(--color-dark);
+      padding: 0.5rem 1.2rem;
+      border: 3px solid var(--color-dark);
+      font-family: 'Bangers', cursive;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      transform: rotate(5deg);
+      box-shadow: 3px 3px 0 var(--color-dark);
+    }
+
+    /* Sticker decorations */
+    .sticker {
+      position: absolute;
+      font-size: 2rem;
+      z-index: 10;
+    }
+
+    .sticker-1 {
+      top: -15px;
+      right: 30px;
+      transform: rotate(15deg);
+    }
+
+    .sticker-2 {
+      bottom: 80px;
+      left: -10px;
+      transform: rotate(-10deg);
+    }
+
+    /* Animations */
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8) rotate(-3deg);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .clothing-side {
+        display: none;
+      }
+
+      .preview-container {
+        width: 90%;
+        max-width: 480px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 1.2rem 1.5rem;
+      }
+
+      .logo {
+        font-size: 2rem;
+        text-shadow:
+                2px 2px 0 var(--color-cream),
+                4px 4px 0 var(--color-taupe);
+      }
+
+      .nav-auth a {
+        font-size: 1rem;
+      }
+
+      .nav-auth .login,
+      .nav-auth .register {
+        padding: 0.6rem 1rem;
+      }
+
+      .preview-container {
+        height: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav>
+  <a href="index.html" class="logo">MISMATCHED</a>
+  <div class="nav-auth">
+    <a href="app.html" class="login">Login</a>
+    <a href="app.html" class="register">Register Now</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main>
+  <!-- Slogan -->
+  <div class="slogan">
+    <h1>Your Closet, <span>Reimagined</span></h1>
+    <p>Organize · Style · Repeat</p>
+  </div>
+
+  <!-- Showcase -->
+  <div class="showcase">
+    <!-- Left Clothing Items -->
+    <div class="clothing-side left">
+      <div class="clothing-item">
+        <span class="clothing-icon">👔</span>
+        <span class="clothing-label">Tops</span>
+      </div>
+      <div class="clothing-item">
+        <span class="clothing-icon">👖</span>
+        <span class="clothing-label">Bottoms</span>
+      </div>
+      <div class="clothing-item">
+        <span class="clothing-icon">👟</span>
+        <span class="clothing-label">Footwear</span>
+      </div>
+    </div>
+
+    <!-- Preview Container -->
+    <div class="preview-container">
+      <span class="sticker sticker-1">⭐</span>
+      <span class="sticker sticker-2">💫</span>
+      <div class="preview-header">
+        <div class="preview-dots">
+          <div class="preview-dot"></div>
+          <div class="preview-dot"></div>
+          <div class="preview-dot"></div>
+        </div>
+        <span class="preview-title">MISMATCHED</span>
+      </div>
+      <div class="preview-content">
+        <div class="mock-nav">
+          <span class="mock-nav-item active">All Items</span>
+          <span class="mock-nav-item">Outfits</span>
+          <span class="mock-nav-item">Saved</span>
+        </div>
+        <div class="mock-grid">
+          <div class="mock-item">👕</div>
+          <div class="mock-item">👗</div>
+          <div class="mock-item">🧥</div>
+          <div class="mock-item">👖</div>
+          <div class="mock-item">👔</div>
+          <div class="mock-item">👠</div>
+          <div class="mock-item">👜</div>
+          <div class="mock-item">🧣</div>
+          <div class="mock-item">🎩</div>
+        </div>
+      </div>
+      <span class="preview-badge">PREVIEW</span>
+    </div>
+
+    <!-- Right Clothing Items -->
+    <div class="clothing-side right">
+      <div class="clothing-item">
+        <span class="clothing-icon">👗</span>
+        <span class="clothing-label">Dresses</span>
+      </div>
+      <div class="clothing-item">
+        <span class="clothing-icon">🧥</span>
+        <span class="clothing-label">Jackets</span>
+      </div>
+      <div class="clothing-item">
+        <span class="clothing-icon">👜</span>
+        <span class="clothing-label">Bags</span>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
