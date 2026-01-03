@@ -10,6 +10,11 @@ def register_user():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        password_repeat = request.form.get("password_repeat")
+
+        if password !=password_repeat:
+            error = "Passwords don't match!"
+            return render_template("register.html", error=error) 
 
         service = UserService(current_app.db)
 
@@ -19,7 +24,7 @@ def register_user():
             session["user_id"] = str(user["_id"])
             session["username"] = user["username"]
 
-            return redirect("/")
+            return redirect("/dashboard")
         except ValueError as e:
             error = str(e)
         
@@ -41,11 +46,11 @@ def login():
             session["user_id"] = str(user["_id"])
             session["username"] = user["username"]
 
-            return redirect("/")
+            return redirect("/dashboard")
         except ValueError as e:
             error = str(e)
         
-    return render_template("login.html", error=error)
+    return render_template("index.html", error=error)
 
 @auth_bp.route("/logout")
 def logout():

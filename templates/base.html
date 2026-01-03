@@ -3,27 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard - MisMatch</title>
+  <title>{% block title %}MisMatch{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 
 <body>
   <header id="header">
     <div class="header-top">
-      <a href="/dashboard">
+      <a href="/">
         <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
       </a>
       <h1 class="center-text">Your favorite outfit generator</h1>
 
+      {% if session.get('username') %}
       <div class="user-info">
         <span>Hello, {{ session.username }}!</span>
         <a href="/logout" class="logout-btn">Logout</a>
       </div>
+      {% endif %}
     </div>
-  </header>
+  </header>    
       
   <main id="content">
-    <!-- CONTENT PART - OUTFIT BOXEN -->
+    <section class="info">
+      <div class="info-content">
+        <h2>{% block info_title %}Welcome to MisMatch{% endblock %}</h2>
+        <p>{% block info_text %}Your personal outfit generator{% endblock %}</p>
+        <img src="{{ url_for('static', filename='images/polaroids_homepage.jpeg') }}" alt="Outfit Collage" class="outfit-image">
+      </div>
+    </section>
+
+    <section class="auth">
+      {% block auth_content %}
+      <!-- CONTENT PARZ -->
+      {% endblock %}
+    </section>
   </main>
 
   <footer class="site-footer">

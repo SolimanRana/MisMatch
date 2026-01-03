@@ -1,0 +1,361 @@
+/* ============================================
+   GLOBALE STYLES
+   ============================================ */
+
+body {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  background-color: #f5f1e8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+header {
+  background-color: #faf8f3;
+  border-bottom: 2px solid #d4c5a9;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+#logo {
+  height: 100px;
+  width: auto;
+}
+
+.center-text {
+  flex: 1;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  color: #5a4a3a;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #e8dcc8;
+  padding: 10px 0;
+}
+
+nav button {
+  background-color: transparent;
+  color: #5a4a3a;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+nav button:hover {
+  background-color: #d4c5a9;
+  color: #3d3027;
+}
+
+nav button.active {
+  background-color: #c9b99a;
+  color: #3d3027;
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+
+main {
+  display: flex;
+  flex-direction: row;
+  min-height: 80vh;
+  flex: 1;
+}
+
+main#content {
+  padding: 20px;
+}
+
+/* ============================================
+   INFO SECTION (linke Seite)
+   ============================================ */
+
+.info {
+  background-color: #d9cdb8;
+  color: #3d3027;
+  flex: 1;
+  padding: 40px;
+}
+
+.info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  margin-top: 0;
+  color: #5a4a3a;
+}
+
+.info ul {
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   AUTH SECTION (rechte Seite - Login/Signup)
+   ============================================ */
+
+.auth {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #faf8f3;
+}
+
+.auth h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #5a4a3a;
+}
+
+.auth form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.auth label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+  color: #5a4a3a;
+}
+
+.auth input {
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #e8dcc8;
+  border: 1px solid #d4c5a9;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: #3d3027;
+}
+
+.auth input:focus {
+  outline: none;
+  border-color: #c9b99a;
+  box-shadow: 0 0 5px rgba(201, 185, 154, 0.4);
+  background-color: #f0e6d6;
+}
+
+.auth input::placeholder {
+  color: #8a7a6a;
+  opacity: 0.7;
+}
+
+.auth button {
+  padding: 12px;
+  background-color: #d9cdb8;
+  color: #3d3027;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin-top: 10px;
+}
+
+.auth button:hover {
+  background-color: #c9b99a;
+  color: #2a1f17;
+}
+
+.auth button:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   LINKS (Forgot Password / Registration)
+   ============================================ */
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.links a {
+  color: #5a4a3a;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: #8a6a4a;
+  text-decoration: underline;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer.site-footer {
+  background-color: #d9cdb8;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 14px;
+  border-top: 2px solid #c9b99a;
+  margin-top: auto;
+  color: #5a4a3a;
+}
+
+footer.site-footer a {
+  color: #5a4a3a;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+footer.site-footer a:hover {
+  color: #8a6a4a;
+  text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Header anpassen */
+  .header-top {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  #logo {
+    height: 80px;
+  }
+
+  .center-text {
+    font-size: 1.1rem;
+  }
+
+  /* Main Layout auf Spalte umstellen */
+  main {
+    flex-direction: column;
+  }
+
+  main#content {
+    padding: 10px;
+  }
+
+  /* Info & Auth Sections */
+  .info,
+  .auth {
+    padding: 20px;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
+
+  .info h2 {
+    font-size: 1.2rem;
+  }
+
+  .auth h2 {
+    font-size: 1.4rem;
+  }
+
+  /* Navigation */
+  nav {
+    padding: 8px 0;
+  }
+
+  nav button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================================
+   SEHR KLEINE BILDSCHIRME
+   ============================================ */
+
+@media (max-width: 480px) {
+  .auth {
+    padding: 15px;
+  }
+
+  .info {
+    padding: 15px;
+  }
+
+  .auth button {
+    padding: 14px;
+    font-size: 1.05rem;
+  }
+
+  #logo {
+    height: 60px;
+  }
+}
+
+/* ============================================
+   OUTFIT IMAGE (Login-Seite)
+   ============================================ */
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.info-content h2 {
+  margin-bottom: 15px;
+}
+
+.info-content p {
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.outfit-image {
+  max-width: 100%;
+  width: 400px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Anpassung */
+@media (max-width: 768px) {
+  .outfit-image {
+    width: 80%;
+    max-width: 300px;
+  }
+}

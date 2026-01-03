@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
-{% extends "index.html" %}
+
 
 {% block content %}
 <h2>Register</h2>
@@ -16,4 +16,39 @@
     <button type="submit">Register</button>
 </form>
 {% endblock %}
-</html>
+</html>-->
+
+{% extends "base.html" %}
+
+{% block title %}Register - MisMatch{% endblock %}
+
+{% block info_title %}Join MisMatch{% endblock %}
+{% block info_text %}Create your account and start generating amazing outfits!{% endblock %}
+
+{% block auth_content %}
+<h2>Registration</h2>
+
+{% if error %}
+  <div class="error-message">
+    {{ error }}
+  </div>
+{% endif %}
+
+<form class="login-form" method="POST" action="/register">
+  <label>Username</label>
+  <input type="text" name="username" placeholder="Choose a username" required minlength="3">
+
+  <label>Password</label>
+  <input type="password" name="password" placeholder="Choose a password" required minlength="6">
+
+  <label>Repeat Password</label>
+  <input type="password" name="password_repeat" placeholder="Repeat your password" required>
+
+  <button type="submit">Sign Up</button>
+</form>
+
+<div class="links">
+  <span>Already have an account?</span>
+  <a href="/login">Login here</a>
+</div>
+{% endblock %}

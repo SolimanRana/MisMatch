@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session, redirect
 from pymongo import MongoClient
 
 def create_app():
@@ -16,7 +16,15 @@ def create_app():
     #Root Route
     @app.route("/")
     def index():
+        if session.get("username"):
+            return redirect("/dashboard")
         return render_template("index.html")
+    
+    @app.route("/dashboard")
+    def dashboard():
+        if not session.get("username"):
+            return redirect("/login")
+        return render_template("dashboard.html")
 
     return app
 
