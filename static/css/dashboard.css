@@ -1,0 +1,317 @@
+/* ============================================
+   DASHBOARD NAVIGATION
+   ============================================ */
+
+.dashboard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e8dcc8;
+  padding: 15px 30px;
+  border-bottom: 2px solid #d4c5a9;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  color: #5a4a3a;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #d9cdb8;
+}
+
+.nav-link.active {
+  background-color: #c9b99a;
+  color: #2a1f17;
+}
+
+/* ============================================
+   HAMBURGER MENU (rechts in Navigation)
+   ============================================ */
+
+.menu-button {
+  position: relative;
+}
+
+.hamburger-btn {
+  padding: 10px 15px;
+  background-color: #d9cdb8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.hamburger-btn span {
+  width: 25px;
+  height: 3px;
+  background-color: #3d3027;
+  border-radius: 2px;
+}
+
+.hamburger-btn:hover {
+  background-color: #c9b99a;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #faf8f3;
+  border: 2px solid #d4c5a9;
+  border-radius: 8px;
+  margin-top: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 150px;
+}
+
+.menu-button:hover .dropdown-menu {
+  display: block;
+}
+
+.menu-item {
+  display: block;
+  padding: 12px 20px;
+  color: #5a4a3a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: #e8dcc8;
+}
+
+.menu-item:first-child:hover {
+  border-radius: 6px 6px 0 0;
+}
+
+.menu-item:last-child:hover {
+  border-radius: 0 0 6px 6px;
+}
+
+/* ============================================
+   DASHBOARD CONTAINER
+   ============================================ */
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   EMOJI CIRCLE
+   ============================================ */
+
+.emoji-circle {
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border: 3px solid #d9cdb8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.emoji {
+  font-size: 3rem;
+}
+
+/* ============================================
+   CLOTHING ROW (3 Boxen nebeneinander)
+   ============================================ */
+
+.clothing-row {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Clothing Section */
+.clothing-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-label {
+  text-align: center;
+  color: #5a4a3a;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.clothing-box-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Arrow Buttons */
+.arrow-btn {
+  background-color: #d9cdb8;
+  color: #3d3027;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  flex-shrink: 0;
+}
+
+.arrow-btn:hover {
+  background-color: #c9b99a;
+}
+
+.arrow-btn:active {
+  transform: scale(0.95);
+}
+
+/* Clothing Box */
+.clothing-box {
+  width: 280px;
+  height: 280px;
+  background-color: #fff;
+  border: 3px solid #d9cdb8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder {
+  font-size: 5rem;
+  color: #d9cdb8;
+  font-weight: bold;
+}
+
+/* ============================================
+   ACTION BUTTONS (unten, nebeneinander)
+   ============================================ */
+
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.mismatch-btn,
+.save-btn {
+  padding: 15px 40px;
+  background-color: #d9cdb8;
+  color: #3d3027;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  min-width: 180px;
+}
+
+.mismatch-btn:hover,
+.save-btn:hover {
+  background-color: #c9b99a;
+}
+
+.mismatch-btn:active,
+.save-btn:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .clothing-row {
+    flex-wrap: wrap;
+  }
+  
+  .clothing-section {
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-nav {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .nav-link {
+    text-align: center;
+  }
+
+  .clothing-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clothing-box {
+    width: 220px;
+    height: 220px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .mismatch-btn,
+  .save-btn {
+    width: 100%;
+  }
+
+  .emoji-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .emoji {
+    font-size: 2.5rem;
+  }
+}

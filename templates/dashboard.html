@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard - MisMatch</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 </head>
 
 <body>
@@ -20,10 +21,85 @@
         <a href="/logout" class="logout-btn">Logout</a>
       </div>
     </div>
+
+    <!-- Navigation Bar -->
+    <nav class="dashboard-nav">
+      <div class="nav-links">
+        <a href="/dashboard" class="nav-link active">Generator</a>
+        <a href="/saved-outfits" class="nav-link">Saved Outfits</a>
+        <a href="/settings" class="nav-link">Settings</a>
+      </div>
+      
+      <!-- Hamburger Menu rechts -->
+      <div class="menu-button">
+        <button class="hamburger-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="dropdown-menu">
+          <a href="#" class="menu-item">Top</a>
+          <a href="#" class="menu-item">Bottom</a>
+          <a href="#" class="menu-item">Footwear</a>
+        </div>
+      </div>
+    </nav>
   </header>
       
   <main id="content">
-    <!-- CONTENT PART - OUTFIT BOXEN -->
+    <div class="dashboard-container">
+      
+      <!-- Emoji Circle -->
+      <div class="emoji-circle">
+        <span class="emoji">🤪</span>
+      </div>
+
+      <!-- Clothing Boxes (nebeneinander) -->
+      <div class="clothing-row">
+        <!-- TOPS Box -->
+        <div class="clothing-section">
+          <h3 class="section-label">TOPS</h3>
+          <div class="clothing-box-container">
+            <button class="arrow-btn left">◀</button>
+            <div class="clothing-box">
+              <span class="placeholder">?</span>
+            </div>
+            <button class="arrow-btn right">▶</button>
+          </div>
+        </div>
+
+        <!-- BOTTOMS Box -->
+        <div class="clothing-section">
+          <h3 class="section-label">BOTTOMS</h3>
+          <div class="clothing-box-container">
+            <button class="arrow-btn left">◀</button>
+            <div class="clothing-box">
+              <span class="placeholder">?</span>
+            </div>
+            <button class="arrow-btn right">▶</button>
+          </div>
+        </div>
+
+        <!-- FOOTWEAR Box -->
+        <div class="clothing-section">
+          <h3 class="section-label">FOOTWEAR</h3>
+          <div class="clothing-box-container">
+            <button class="arrow-btn left">◀</button>
+            <div class="clothing-box">
+              <span class="placeholder">?</span>
+            </div>
+            <button class="arrow-btn right">▶</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons unten (nebeneinander, mittig) -->
+      <div class="action-buttons">
+        <button class="mismatch-btn">MisMatch</button>
+        <button class="save-btn">Save Outfit</button>
+      </div>
+
+    </div>
   </main>
 
   <footer class="site-footer">
