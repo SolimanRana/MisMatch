@@ -7,7 +7,7 @@ def create_app():
 
     #MongoDB
     client = MongoClient("mongodb://localhost:27017")
-    app.db = client["mismatch"]
+    app.db = client["mismatch_db"]
 
     #Blueprints
     from controllers.auth_controller import auth_bp
@@ -15,6 +15,9 @@ def create_app():
 
     from controllers.generator_controller import generator_bp
     app.register_blueprint(generator_bp)
+
+    from controllers.outfit_controller import outfit_bp
+    app.register_blueprint(outfit_bp)
 
     #Root Route
     @app.route("/")
