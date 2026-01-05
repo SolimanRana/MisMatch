@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">   
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saved Outfits - MisMatch</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/savedOutfits.css') }}">
+</head>
+
+<body>
+  <header id="header">
+    <div class="header-top">
+      <a href="/dashboard">
+        <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
+      </a>
+      <h1 class="center-text">Your favorite outfit generator</h1>
+
+      <div class="user-info">
+        <span>Hello, {{ session.username }}!</span>
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="dashboard-nav">
+      <div class="nav-links">
+        <a href="/dashboard" class="nav-link">Generator</a>
+        <a href="/saved-outfits" class="nav-link active">Saved Outfits</a>
+        <a href="/settings" class="nav-link">Settings</a>
+      </div>
+      
+      <!-- Hamburger Menu right -->
+      <div class="menu-button">
+        <button class="hamburger-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="dropdown-menu">
+          <a href="#" class="menu-item">Top</a>
+          <a href="#" class="menu-item">Bottom</a>
+          <a href="#" class="menu-item">Footwear</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+      
+  <main id="content">
+    <div class="saved-outfits-container">
+      <h2 class="page-title">My Saved Outfits</h2>
+      
+      {% if outfits and outfits|length > 0 %}
+        <div class="outfits-grid">
+          {% for outfit in outfits %}
+          <div class="outfit-card" data-outfit-id="{{ outfit._id }}">
+            <div class="outfit-header">
+              <h3 class="outfit-name">{{ outfit.outfit_name }}</h3>
+              <button class="delete-btn" onclick="deleteOutfit('{{ outfit._id }}')">
+                <span>✕</span>
+              </button>
+            </div>
+            
+            <div class="outfit-items">
+              <!-- Top -->
+              <div class="outfit-item">
+                <span class="item-label">Top</span>
+                <div class="item-image-box">
+                  {% if outfit.top %}
+                    <img src="/{{ outfit.top.image_path }}" 
+                         alt="{{ outfit.top.subcategory_name }}" 
+                         class="item-image">
+                  {% else %}
+                    <span class="placeholder">?</span>
+                  {% endif %}
+                </div>
+                {% if outfit.top %}
+                  <span class="item-details">{{ outfit.top.subcategory_name }} - {{ outfit.top.color }}</span>
+                {% endif %}
+              </div>
+              
+              <!-- Bottom -->
+              <div class="outfit-item">
+                <span class="item-label">Bottom</span>
+                <div class="item-image-box">
+                  {% if outfit.bottom %}
+                    <img src="/{{ outfit.bottom.image_path }}" 
+                         alt="{{ outfit.bottom.subcategory_name }}" 
+                         class="item-image">
+                  {% else %}
+                    <span class="placeholder">?</span>
+                  {% endif %}
+                </div>
+                {% if outfit.bottom %}
+                  <span class="item-details">{{ outfit.bottom.subcategory_name }} - {{ outfit.bottom.color }}</span>
+                {% endif %}
+              </div>
+              
+              <!-- Footwear -->
+              <div class="outfit-item">
+                <span class="item-label">Footwear</span>
+                <div class="item-image-box">
+                  {% if outfit.footwear %}
+                    <img src="/{{ outfit.footwear.image_path }}" 
+                         alt="{{ outfit.footwear.subcategory_name }}" 
+                         class="item-image">
+                  {% else %}
+                    <span class="placeholder">?</span>
+                  {% endif %}
+                </div>
+                {% if outfit.footwear %}
+                  <span class="item-details">{{ outfit.footwear.subcategory_name }} - {{ outfit.footwear.color }}</span>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="outfit-footer">
+              <span class="outfit-date">Saved: {{ outfit.created_at.strftime('%B %d, %Y') }}</span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <p class="empty-message">You haven't saved any outfits yet!</p>
+          <p class="empty-submessage">Head to the generator to create and save your first outfit.</p>
+          <a href="/dashboard" class="cta-btn">Go to Generator</a>
+        </div>
+      {% endif %}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      &copy; 2026 <strong>MisMatch</strong> – 
+      <a href="https://www.fh-campuswien.ac.at" target="_blank" rel="noopener noreferrer">
+        FH Campus Wien
+      </a>
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/savedOutfits.js') }}"></script>
+</body>
+</html>
