@@ -129,3 +129,31 @@ function saveOutfit() {
         alert('Error: ' + error);
       });
 }
+
+// filter function hamburger menu (s1)
+function filterByCategory(category) {
+  const sections = {
+    'top': document.querySelector('.clothing-section:nth-child(1)'),
+    'bottom': document.querySelector('.clothing-section:nth-child(2)'),
+    'footwear': document.querySelector('.clothing-section:nth-child(3)')
+  };
+
+  if (category === 'all') {
+    // Show all sections
+    Object.values(sections).forEach(section => {
+      section.style.display = 'block';
+    });
+  } else {
+    // Hide all, then show selected
+    Object.entries(sections).forEach(([key, section]) => {
+      if (key === category) {
+        section.style.display = 'block';
+      } else {
+        section.style.display = 'none';
+      }
+    });
+  }
+
+  // Close dropdown menu
+  document.querySelector('.dropdown-menu').classList.remove('show');
+}
