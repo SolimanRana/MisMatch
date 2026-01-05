@@ -7,7 +7,7 @@ def create_app():
 
     #MongoDB
     client = MongoClient("mongodb://localhost:27017")
-    app.db = client["mismatch_db"]
+    app.db = client["mismatch"]
 
     #Blueprints
     from controllers.auth_controller import auth_bp
