@@ -94,3 +94,38 @@ function generateMismatchOutfit() {
   
   console.log('MisMatch Outfit generated!');
 }
+// Save Outfit Function
+function saveOutfit() {
+  // Check if all items are selected
+  if (currentIndex.tops === -1 || currentIndex.bottoms === -1 || currentIndex.footwear === -1) {
+    alert('Please select a top, bottom, and footwear first!');
+    return;
+  }
+
+  const outfitName = prompt('Enter a name for your outfit:', 'My Outfit');
+  if (!outfitName) return;
+
+  const outfitData = {
+    outfit_name: outfitName,
+    top_id: shuffledClothing.tops[currentIndex.tops]._id,
+    bottom_id: shuffledClothing.bottoms[currentIndex.bottoms]._id,
+    footwear_id: shuffledClothing.footwear[currentIndex.footwear]._id
+  };
+
+  fetch('/api/save-outfit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(outfitData)
+  })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Outfit saved!');
+        } else {
+          alert('Error saving outfit: ' + data.error);
+        }
+      })
+      .catch(error => {
+        alert('Error: ' + error);
+      });
+}
