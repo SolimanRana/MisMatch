@@ -16,6 +16,9 @@ def create_app():
     from controllers.generator_controller import generator_bp
     app.register_blueprint(generator_bp)
 
+    from controllers.outfit_controller import outfit_bp
+    app.register_blueprint(outfit_bp)
+
     #Root Route
     @app.route("/")
     def index():

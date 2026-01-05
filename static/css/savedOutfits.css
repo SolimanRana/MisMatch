@@ -1,0 +1,221 @@
+/* ============================================
+   SAVED OUTFITS PAGE
+   ============================================ */
+
+.saved-outfits-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #5a4a3a;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+/* ============================================
+   OUTFITS GRID
+   ============================================ */
+
+.outfits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+/* ============================================
+   OUTFIT CARD
+   ============================================ */
+
+.outfit-card {
+  background-color: #fff;
+  border: 3px solid #d9cdb8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.outfit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Outfit Header */
+.outfit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e8dcc8;
+}
+
+.outfit-name {
+  font-size: 1.3rem;
+  color: #5a4a3a;
+  margin: 0;
+  font-weight: bold;
+}
+
+.delete-btn {
+  background-color: #d9cdb8;
+  color: #3d3027;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c99;
+  color: #fff;
+}
+
+.delete-btn:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   OUTFIT ITEMS
+   ============================================ */
+
+.outfit-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.outfit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #5a4a3a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.item-image-box {
+  width: 100%;
+  height: 150px;
+  background-color: #faf8f3;
+  border: 2px solid #e8dcc8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.item-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.item-details {
+  font-size: 0.85rem;
+  color: #7a6a5a;
+  text-align: center;
+}
+
+/* ============================================
+   OUTFIT FOOTER
+   ============================================ */
+
+.outfit-footer {
+  padding-top: 15px;
+  border-top: 2px solid #e8dcc8;
+}
+
+.outfit-date {
+  font-size: 0.85rem;
+  color: #8a7a6a;
+  font-style: italic;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-message {
+  font-size: 1.5rem;
+  color: #5a4a3a;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.empty-submessage {
+  font-size: 1rem;
+  color: #8a7a6a;
+  margin-bottom: 30px;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  background-color: #d9cdb8;
+  color: #3d3027;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.cta-btn:hover {
+  background-color: #c9b99a;
+}
+
+.cta-btn:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .outfits-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  .outfit-card {
+    padding: 15px;
+  }
+
+  .outfit-name {
+    font-size: 1.1rem;
+  }
+
+  .item-image-box {
+    height: 120px;
+  }
+}

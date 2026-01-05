@@ -94,3 +94,53 @@ function generateMismatchOutfit() {
   
   console.log('MisMatch Outfit generated!');
 }
+
+// Save Outfit Function
+async function saveOutfit() {
+  // Check if all items are selected
+  if (currentIndex.tops === -1 || currentIndex.bottoms === -1 || currentIndex.footwear === -1) {
+    alert('Please select all clothing items before saving!');
+    return;
+  }
+
+  // Get the current clothing item IDs
+  const topItem = shuffledClothing.tops[currentIndex.tops];
+  const bottomItem = shuffledClothing.bottoms[currentIndex.bottoms];
+  const footwearItem = shuffledClothing.footwear[currentIndex.footwear];
+
+  const outfitData = {
+    top_id: topItem._id,
+    bottom_id: bottomItem._id,
+    footwear_id: footwearItem._id
+  };
+
+  try {
+    const response = await fetch('/save-outfit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(outfitData)
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(data.message);
+      console.log('Outfit saved successfully:', data);
+    } else {
+      alert(`Error: ${data.error}`);
+    }
+  } catch (error) {
+    console.error('Error saving outfit:', error);
+    alert('Failed to save outfit. Please try again.');
+  }
+}
+
+// Add event listener to save button when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  const saveBtn = document.querySelector('.save-btn');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', saveOutfit);
+  }
+});
