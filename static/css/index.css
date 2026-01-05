@@ -1,6 +1,4 @@
-/* ============================================
-   GLOBALE STYLES
-   ============================================ */
+/* GLOBALE STYLES */
 
 body {
   font-family: 'Arial', 'Helvetica', sans-serif;
@@ -12,9 +10,7 @@ body {
   min-height: 100vh;
 }
 
-/* ============================================
-   HEADER
-   ============================================ */
+/* HEADER */
 
 header {
   background-color: #faf8f3;
@@ -44,9 +40,7 @@ header {
   color: #5a4a3a;
 }
 
-/* ============================================
-   NAVIGATION
-   ============================================ */
+/* NAVIGATION */
 
 nav {
   display: flex;
@@ -77,9 +71,7 @@ nav button.active {
   color: #3d3027;
 }
 
-/* ============================================
-   MAIN CONTENT
-   ============================================ */
+/* MAIN CONTENT */
 
 main {
   display: flex;
@@ -92,9 +84,7 @@ main#content {
   padding: 20px;
 }
 
-/* ============================================
-   INFO SECTION (linke Seite)
-   ============================================ */
+/* INFO SECTION (linke Seite) */
 
 .info {
   background-color: #d9cdb8;
@@ -115,9 +105,7 @@ main#content {
   line-height: 1.6;
 }
 
-/* ============================================
-   AUTH SECTION (rechte Seite - Login/Signup)
-   ============================================ */
+/* AUTH SECTION (rechte Seite - Login/Signup) */
 
 .auth {
   flex: 1;
@@ -195,9 +183,7 @@ main#content {
   transform: scale(0.98);
 }
 
-/* ============================================
-   LINKS (Forgot Password / Registration)
-   ============================================ */
+/* LINKS (Forgot Password / Registration) */
 
 .links {
   display: flex;
@@ -217,9 +203,7 @@ main#content {
   text-decoration: underline;
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
+/* FOOTER*/
 
 footer.site-footer {
   background-color: #d9cdb8;
@@ -243,9 +227,7 @@ footer.site-footer a:hover {
   text-decoration: underline;
 }
 
-/* ============================================
-   RESPONSIVE DESIGN - MOBILE
-   ============================================ */
+/* RESPONSIVE DESIGN - MOBILE */
 
 @media (max-width: 768px) {
   /* Header anpassen */
@@ -263,7 +245,7 @@ footer.site-footer a:hover {
     font-size: 1.1rem;
   }
 
-  /* Main Layout auf Spalte umstellen */
+  /* layout auf spalte umstellen */
   main {
     flex-direction: column;
   }
@@ -300,9 +282,7 @@ footer.site-footer a:hover {
   }
 }
 
-/* ============================================
-   SEHR KLEINE BILDSCHIRME
-   ============================================ */
+/* SEHR KLEINE BILDSCHIRME */
 
 @media (max-width: 480px) {
   .auth {
@@ -323,9 +303,7 @@ footer.site-footer a:hover {
   }
 }
 
-/* ============================================
-   OUTFIT IMAGE (Login-Seite)
-   ============================================ */
+/* OUTFIT IMAGE (Login-Seite) */
 
 .info-content {
   display: flex;

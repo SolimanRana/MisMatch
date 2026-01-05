@@ -13,6 +13,9 @@ def create_app():
     from controllers.auth_controller import auth_bp
     app.register_blueprint(auth_bp)
 
+    from controllers.generator_controller import generator_bp
+    app.register_blueprint(generator_bp)
+
     #Root Route
     @app.route("/")
     def index():

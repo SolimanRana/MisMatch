@@ -60,11 +60,11 @@
         <div class="clothing-section">
           <h3 class="section-label">TOPS</h3>
           <div class="clothing-box-container">
-            <button class="arrow-btn left">◀</button>
-            <div class="clothing-box">
+            <button class="arrow-btn left" onclick="changeClothing('tops',-1)">◀</button>
+            <div class="clothing-box" id="tops-box">
               <span class="placeholder">?</span>
             </div>
-            <button class="arrow-btn right">▶</button>
+            <button class="arrow-btn right" onclick="changeClothing('tops',1)">▶</button>
           </div>
         </div>
 
@@ -72,11 +72,11 @@
         <div class="clothing-section">
           <h3 class="section-label">BOTTOMS</h3>
           <div class="clothing-box-container">
-            <button class="arrow-btn left">◀</button>
-            <div class="clothing-box">
+            <button class="arrow-btn left" onclick="changeClothing('bottoms',-1)">◀</button>
+            <div class="clothing-box" id="bottoms-box">
               <span class="placeholder">?</span>
             </div>
-            <button class="arrow-btn right">▶</button>
+            <button class="arrow-btn right" onclick="changeClothing('bottoms',1)">▶</button>
           </div>
         </div>
 
@@ -84,21 +84,20 @@
         <div class="clothing-section">
           <h3 class="section-label">FOOTWEAR</h3>
           <div class="clothing-box-container">
-            <button class="arrow-btn left">◀</button>
-            <div class="clothing-box">
+            <button class="arrow-btn left" onclick="changeClothing('footwear',-1)">◀</button>
+            <div class="clothing-box" id="footwear-box">
               <span class="placeholder">?</span>
             </div>
-            <button class="arrow-btn right">▶</button>
+            <button class="arrow-btn right" onclick="changeClothing('footwear',1)">▶</button>
           </div>
         </div>
       </div>
 
       <!-- Buttons unten (nebeneinander, mittig) -->
       <div class="action-buttons">
-        <button class="mismatch-btn">MisMatch</button>
+        <button class="mismatch-btn" onclick="generateMismatchOutfit()">MisMatch</button>
         <button class="save-btn">Save Outfit</button>
       </div>
-
     </div>
   </main>
 
@@ -110,5 +109,19 @@
       </a>
     </p>
   </footer>
+
+  <!-- Clothing Data aus Python -->
+  <script>
+    // Daten von Flask/Python in JavaScript verfügbar machen
+    const clothingData = {
+      tops: {{ tops | tojson }},
+      bottoms: {{ bottoms | tojson }},
+      footwear: {{ footwear | tojson }}
+    };
+  </script>
+
+  <!-- JavaScript File -->
+  <script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+
 </body>
 </html>
