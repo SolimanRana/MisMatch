@@ -19,6 +19,9 @@ def create_app():
     from controllers.outfit_controller import outfit_bp
     app.register_blueprint(outfit_bp)
 
+    from controllers.upload_controller import upload_bp
+    app.register_blueprint(upload_bp)
+
     #Root Route
     @app.route("/")
     def index():

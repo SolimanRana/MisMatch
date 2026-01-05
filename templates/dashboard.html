@@ -29,7 +29,7 @@
         <a href="/saved-outfits" class="nav-link">Saved Outfits</a>
         <a href="/settings" class="nav-link">Settings</a>
       </div>
-      
+
       <!-- Hamburger Menu right -->
       <div class="menu-button">
         <button class="hamburger-btn">
@@ -46,10 +46,10 @@
       </div>
     </nav>
   </header>
-      
+
   <main id="content">
     <div class="dashboard-container">
-      
+
       <!-- Emoji Circle -->
       <div class="emoji-circle">
         <span class="emoji"></span>
@@ -98,13 +98,39 @@
       <div class="action-buttons">
         <button class="mismatch-btn" onclick="generateMismatchOutfit()">MisMatch</button>
         <button class="save-btn" onclick="saveOutfit()">Save Outfit</button>
+        <button class="upload-btn" onclick="openUploadModal()">📷 Upload</button>
       </div>
     </div>
   </main>
 
+  <!-- Upload Modal -->
+  <div id="upload-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeUploadModal()">&times;</span>
+      <h2>Upload Your Clothing</h2>
+      <form id="upload-form" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Category:</label>
+          <select id="upload-category" required>
+            <option value="">Select category...</option>
+            <option value="top">Top</option>
+            <option value="bottom">Bottom</option>
+            <option value="footwear">Footwear</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Image:</label>
+          <input type="file" id="upload-image" accept="image/png, image/jpeg, image/jpg" required>
+        </div>
+        <button type="submit" class="save-btn">Upload</button>
+      </form>
+    </div>
+  </div>
+
+
   <footer class="site-footer">
     <p>
-      &copy; 2026 <strong>MisMatch</strong> – 
+      &copy; 2026 <strong>MisMatch</strong> –
       <a href="https://www.fh-campuswien.ac.at" target="_blank" rel="noopener noreferrer">
         FH Campus Wien
       </a>

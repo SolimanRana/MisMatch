@@ -157,3 +157,48 @@ function filterByCategory(category) {
   // Close dropdown menu
   document.querySelector('.dropdown-menu').classList.remove('show');
 }
+
+// Upload Modal Functions (FR-S4)
+function openUploadModal() {
+  document.getElementById('upload-modal').style.display = 'flex';
+}
+
+function closeUploadModal() {
+  document.getElementById('upload-modal').style.display = 'none';
+  document.getElementById('upload-form').reset();
+}
+
+// Handle Upload Form Submit
+document.getElementById('upload-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append('category', document.getElementById('upload-category').value);
+  formData.append('image', document.getElementById('upload-image').files[0]);
+
+  fetch('/api/upload-clothing', {
+    method: 'POST',
+    body: formData
+  })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Clothing uploaded successfully! Refresh to see it.');
+          closeUploadModal();
+          location.reload();
+        } else {
+          alert('Error: ' + data.error);
+        }
+      })
+      .catch(error => {
+        alert('Error uploading: ' + error);
+      });
+});
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+  const modal = document.getElementById('upload-modal');
+  if (event.target === modal) {
+    closeUploadModal();
+  }
+}

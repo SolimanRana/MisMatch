@@ -326,3 +326,77 @@
   object-fit: contain;
   border-radius: 4px;
 }
+
+/* Upload Button */
+.upload-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 3px solid #4a4035;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #8fa5b5;
+  color: white;
+  box-shadow: 4px 4px 0 #4a4035;
+}
+
+.upload-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #4a4035;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #e8e2d8;
+  padding: 30px;
+  border-radius: 10px;
+  border: 3px solid #4a4035;
+  box-shadow: 8px 8px 0 #4a4035;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group select,
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #4a4035;
+  border-radius: 5px;
+}
