@@ -400,3 +400,28 @@
   border: 2px solid #4a4035;
   border-radius: 5px;
 }
+
+/* Delete Button für Custom Items */
+.delete-item-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #c97373;
+  border: 2px solid #4a4035;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-item-btn:hover {
+  background: #a85555;
+}
+
+.clothing-box {
+  position: relative;
+}

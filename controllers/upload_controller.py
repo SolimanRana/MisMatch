@@ -66,3 +66,22 @@ def upload_clothing():
         })
 
     return jsonify({"error": "Invalid file type"}), 400
+
+
+@upload_bp.route("/api/delete-clothing/<item_id>", methods=["DELETE"])
+def delete_clothing(item_id):
+    if not session.get("user_id"):
+        return jsonify({"error": "Not logged in"}), 401
+
+    from bson import ObjectId
+
+    # Nur eigene Uploads löschen (mit user_id)
+    result = current_app.db.clothing.delete_one({
+        "_id": ObjectId(item_id),
+        "user_id": session.get("user_id")
+    })
+
+    if result.deleted_count > 0:
+        return jsonify({"success": True})
+    else:
+        return jsonify({"error": "Item not found or not yours"}), 404

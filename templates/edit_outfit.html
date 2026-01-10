@@ -20,6 +20,15 @@
       <a href="/logout" class="logout-btn">Logout</a>
     </div>
   </div>
+
+  <!-- Navigation Bar -->
+  <nav class="dashboard-nav">
+    <div class="nav-links">
+      <a href="/dashboard" class="nav-link">Generator</a>
+      <a href="/saved-outfits" class="nav-link active">Saved Outfits</a>
+      <a href="/settings" class="nav-link">Settings</a>
+    </div>
+  </nav>
 </header>
 
 <main id="content">
@@ -102,7 +111,6 @@
     footwear: 0
   };
 
-  // Find initial indices based on saved outfit
   function initializeIndices() {
     clothingData.tops.forEach((item, idx) => {
       if (item._id === originalOutfit.top_id) currentIndex.tops = idx;
@@ -165,7 +173,6 @@
             });
   }
 
-  // Initialize on page load
   initializeIndices();
 </script>
 </body>

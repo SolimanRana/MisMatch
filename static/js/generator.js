@@ -61,10 +61,18 @@ function displayClothing(category) {
   } else {
     // show image from shuffled list
     const item = shuffledClothing[category][index];
+    let deleteBtn = '';
+
+    // Zeige Delete-Button nur bei eigenen Uploads
+    if (item.subcategory === 'custom') {
+      deleteBtn = `<button class="delete-item-btn" onclick="deleteClothingItem('${item._id}', '${category}')">🗑️</button>`;
+    }
+
     box.innerHTML = `
       <img src="/${item.image_path}" 
            alt="${item.subcategory_name}" 
            class="clothing-image">
+      ${deleteBtn}
     `;
   }
 }
@@ -200,5 +208,23 @@ window.onclick = function(event) {
   const modal = document.getElementById('upload-modal');
   if (event.target === modal) {
     closeUploadModal();
+  }
+}
+
+// Delete Custom Clothing Item
+function deleteClothingItem(itemId, category) {
+  if (confirm('Delete this item?')) {
+    fetch('/api/delete-clothing/' + itemId, {
+      method: 'DELETE'
+    })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Item deleted!');
+            location.reload();
+          } else {
+            alert('Error: ' + data.error);
+          }
+        });
   }
 }

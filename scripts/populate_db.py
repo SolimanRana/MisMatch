@@ -10,7 +10,7 @@ from datetime import datetime
 
 # MongoDB connection
 MONGODB_URI = "mongodb://localhost:27017/"  # Update if your MongoDB is hosted elsewhere
-DATABASE_NAME = "mismatch_db"
+DATABASE_NAME = "mismatch"
 COLLECTION_NAME = "clothing"
 
 # Define subcategory mappings
