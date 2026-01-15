@@ -30,3 +30,23 @@ class UserService:
             raise ValueError("Invalid username or password")
 
         return user
+    
+    def change_username(self, user_id, new_username):
+        if self.user_dao.get_by_username(new_username):
+            raise ValueError("username already exists")
+        
+        self.user_dao.update_username(user_id, new_username)
+        
+    def change_password(self, user_id, old_password, new_password):
+        user = self.user_dao.get_by_id(user_id)
+        
+        try:
+            ph.verify(user["password_hash"], old_password)
+        except VerifyMismatchError:
+            raise ValueError("Old Password is incorrect")
+        
+        new_hash = ph.hash(new_password)
+        self.user_dao.update_password(user_id, new_hash)
+        
+    def change_avatar(self, user_id, avatar):
+        self.user_dao.update_avatar(user_id, avatar)

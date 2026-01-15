@@ -16,9 +16,13 @@
       </a>
       <h1 class="center-text">Your favorite outfit generator</h1>
 
-      <div class="user-info">
-        <span>Hello, {{ session.username }}!</span>
-        <a href="/logout" class="logout-btn">Logout</a>
+      <div class="user-menu">
+        <button class="user-btn" onclick="toggleMenu()">
+          Hello, {{ session.username }} 
+        </button>
+      <div class="user-dropdown" id="userDropdown">
+        <a href="/settings">Settings</a>
+        <a href="/logout">Logout</a>
       </div>
     </div>
 
@@ -29,21 +33,6 @@
         <a href="/saved-outfits" class="nav-link">Saved Outfits</a>
         <a href="/settings" class="nav-link">Settings</a>
       </div>
-
-      <!-- Hamburger Menu right -->
-      <div class="menu-button">
-        <button class="hamburger-btn">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <div class="dropdown-menu">
-          <a href="#" class="menu-item" onclick="filterByCategory('all'); return false;">All</a>
-          <a href="#" class="menu-item" onclick="filterByCategory('top'); return false;">Top</a>
-          <a href="#" class="menu-item" onclick="filterByCategory('bottom'); return false;">Bottom</a>
-          <a href="#" class="menu-item" onclick="filterByCategory('footwear'); return false;">Footwear</a>
-        </div>
-      </div>
     </nav>
   </header>
 
@@ -51,46 +40,90 @@
     <div class="dashboard-container">
 
       <!-- Emoji Circle -->
-      <div class="emoji-circle">
-        <span class="emoji"></span>
-      </div>
+    <div class="emoji-circle">
+      <span class="emoji">
+          {{ session.avatar if session.avatar else "🙂" }}
+      </span>
+    </div>
 
       <!-- Clothing Boxes (nebeneinander) -->
       <div class="clothing-row">
         <!-- TOPS Box -->
         <div class="clothing-section">
-          <h3 class="section-label">TOPS</h3>
-          <div class="clothing-box-container">
-            <button class="arrow-btn left" onclick="changeClothing('tops',-1)">◀</button>
-            <div class="clothing-box" id="tops-box">
-              <span class="placeholder">?</span>
-            </div>
-            <button class="arrow-btn right" onclick="changeClothing('tops',1)">▶</button>
+        <h3 class="section-label">TOPS</h3>
+
+        <div class="clothing-box-container">
+          <button class="arrow-btn left" onclick="changeClothing('tops', -1)">◀</button>
+
+          <div class="clothing-box clickable"
+              id="tops-box"
+              onclick="togglePanel('tops')">
+            <span class="placeholder">?</span>
           </div>
+
+          <button class="arrow-btn right" onclick="changeClothing('tops', 1)">▶</button>
         </div>
+
+        <!-- FILTER PANEL -->
+        <div class="clothing-panel" id="panel-tops">
+          <select onchange="applyColorFilter('tops', this.value)">
+            <option value="all">All colors</option>
+          </select>
+
+          <div class="clothing-grid" id="grid-tops"></div>
+        </div>
+      </div>
+
 
         <!-- BOTTOMS Box -->
         <div class="clothing-section">
-          <h3 class="section-label">BOTTOMS</h3>
-          <div class="clothing-box-container">
-            <button class="arrow-btn left" onclick="changeClothing('bottoms',-1)">◀</button>
-            <div class="clothing-box" id="bottoms-box">
-              <span class="placeholder">?</span>
-            </div>
-            <button class="arrow-btn right" onclick="changeClothing('bottoms',1)">▶</button>
+        <h3 class="section-label">BOTTOMS</h3>
+
+        <div class="clothing-box-container">
+          <button class="arrow-btn left" onclick="changeClothing('bottoms', -1)">◀</button>
+
+          <div class="clothing-box clickable"
+              id="bottoms-box"
+              onclick="togglePanel('bottoms')">
+            <span class="placeholder">?</span>
           </div>
+
+          <button class="arrow-btn right" onclick="changeClothing('bottoms', 1)">▶</button>
         </div>
 
+        <!-- FILTER PANEL -->
+        <div class="clothing-panel" id="panel-bottoms">
+          <select onchange="applyColorFilter('bottoms', this.value)">
+            <option value="all">All colors</option>
+          </select>
+
+          <div class="clothing-grid" id="grid-bottoms"></div>
+        </div>
+      </div>
+
         <!-- FOOTWEAR Box -->
-        <div class="clothing-section">
-          <h3 class="section-label">FOOTWEAR</h3>
-          <div class="clothing-box-container">
-            <button class="arrow-btn left" onclick="changeClothing('footwear',-1)">◀</button>
-            <div class="clothing-box" id="footwear-box">
-              <span class="placeholder">?</span>
-            </div>
-            <button class="arrow-btn right" onclick="changeClothing('footwear',1)">▶</button>
+      <div class="clothing-section">
+        <h3 class="section-label">FOOTWEAR</h3>
+
+        <div class="clothing-box-container">
+          <button class="arrow-btn left" onclick="changeClothing('footwear', -1)">◀</button>
+
+          <div class="clothing-box clickable"
+              id="footwear-box"
+              onclick="togglePanel('footwear')">
+            <span class="placeholder">?</span>
           </div>
+
+          <button class="arrow-btn right" onclick="changeClothing('footwear', 1)">▶</button>
+        </div>
+
+        <!-- FILTER PANEL -->
+        <div class="clothing-panel" id="panel-footwear">
+          <select onchange="applyColorFilter('footwear', this.value)">
+            <option value="all">All colors</option>
+          </select>
+
+          <div class="clothing-grid" id="grid-footwear"></div>
         </div>
       </div>
 
@@ -127,7 +160,6 @@
     </div>
   </div>
 
-
   <footer class="site-footer">
     <p>
       &copy; 2026 <strong>MisMatch</strong> –
@@ -145,10 +177,24 @@
       bottoms: {{ bottoms | tojson }},
       footwear: {{ footwear | tojson }}
     };
+
+    function toggleMenu() {
+      const menu = document.getElementById("userDropdown");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+    document.addEventListener("click", function (event) {
+      const menu = document.getElementById("userDropdown");
+      const button = document.querySelector(".user-btn");
+
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.style.display ="none";
+      }
+    });
   </script>
 
   <!-- JavaScript File -->
   <script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+
 
 </body>
 </html>

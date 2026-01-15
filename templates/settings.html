@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <title>User Settings</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+</head>
+<body>
+    <div class="settings-container">
+
+        <h2>User Settings</h2>
+
+        {% if error %}
+        <p style="settings-error">{{ error }}</p>
+        {% endif %}
+
+        {% if success %}
+        <p style="settings-success">{{ success }}</p>
+        {% endif %}
+
+        <h3>Change Username</h3>
+        <form method="POST">
+            <input type="hidden" name="action" value="change_username">
+            <input type="text" name="new_username" placeholder="New username" required>
+            <button type="submit">Update Username</button>
+        </form>
+
+        <hr class="settings-divider">
+
+        <h3>Change Password</h3>
+        <form method="POST">
+            <input type="hidden" name="action" value="change_password">
+            <input type="password" name="old_password" placeholder="Old password" required>
+            <input type="password" name="new_password" placeholder="New password" required>
+            <button type="submit">Update Password</button>
+        </form>
+
+        <hr class="settings-divider">
+
+        <h3>Choose your Avatar</h3>
+        <form method="POST">
+            <input type="hidden" name="action" value="change_avatar">
+
+        <div class="avatar-grid">
+            {% for a in ["🙂","😎","🤓","🧑","👽","🐸","🐱"] %}
+            <label class="avatar-option">
+                <input type="radio" name="avatar" value="{{ a }}"
+                    {% if avatar == a %}checked{% endif %}>
+                <span class="avatar">{{ a }}</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Save Avatar</button>
+    </form>
+
+        <a href="/dashboard" class="settings-back"> Back to Dashboard</a>
+    </div>
+</body>
+</html>

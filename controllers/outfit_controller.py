@@ -8,11 +8,13 @@ outfit_bp = Blueprint("outfit", __name__)
 def saved_outfits():
     if not session.get("username"):
         return redirect("/login")
+    
+    sort = request.args.get("sort", "newest")
 
     service = OutfitService(current_app.db)
-    outfits = service.get_user_outfits(session.get("user_id"))
+    outfits = service.get_user_outfits(session.get("user_id"), sort=sort)
 
-    return render_template("saved_outfits.html", outfits=outfits)
+    return render_template("saved_outfits.html", outfits=outfits, sort=sort)
 
 @outfit_bp.route("/api/save-outfit", methods=["POST"])
 def save_outfit():

@@ -23,6 +23,7 @@ def register_user():
 
             session["user_id"] = str(user["_id"])
             session["username"] = user["username"]
+            session["avatar"] = user.get("avatar", "🙂")
 
             return redirect("/dashboard")
         except ValueError as e:
@@ -45,12 +46,19 @@ def login():
 
             session["user_id"] = str(user["_id"])
             session["username"] = user["username"]
+            session["avatar"] = user.get("avatar", "🙂")
 
             return redirect("/dashboard")
         except ValueError as e:
             error = str(e)
         
     return render_template("index.html", error=error)
+
+@auth_bp.route("/settings")
+def settings():
+    if not session.get("username"):
+        return redirect("/login")
+    return render_template("settings.html")
 
 @auth_bp.route("/logout")
 def logout():

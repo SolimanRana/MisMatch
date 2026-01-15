@@ -34,6 +34,15 @@
 <main id="content">
     <h2 style="text-align: center; margin: 20px;">Your Saved Outfits</h2>
 
+    <div class="outfit-filter">
+        <label for="sort">Sort by:</label>
+        <select id="sort" onchange="applySort()">
+            <option value="newest" {% if sort == "newest"%}selected{% endif %}>Newest first </option>
+            <option value="oldest" {% if sort == "oldest"%}selected{% endif %}>Oldest first </option>
+            <option value="az" {% if sort == "az"%}selected{% endif %}>A-Z first </option>
+        </select>
+    </div>
+
     {% if outfits %}
     <div class="outfits-container">
         {% for outfit in outfits %}
@@ -86,6 +95,11 @@
                     }
                 });
         }
+    }
+
+    function applySort() {
+        const sort = document.getElementById("sort").value;
+        window.location.href = `/saved-outfits?sort=${sort}`;
     }
 </script>
 </body>

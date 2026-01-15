@@ -8,6 +8,10 @@ class OutfitService:
 
     def save_outfit(self, user_id, outfit_name, top_id, bottom_id, footwear_id):
         """Save a new outfit"""
+        if not outfit_name or outfit_name.strip() == "" or outfit_name == "My Outfit":
+          count = self.collection.count_documents({"user_id": user_id})
+          outfit_name = f"My Outfit {count + 1}"  
+        
         document = {
             "user_id": user_id,
             "outfit_name": outfit_name,
@@ -19,9 +23,20 @@ class OutfitService:
         result = self.collection.insert_one(document)
         return str(result.inserted_id)
 
-    def get_user_outfits(self, user_id):
+    def get_user_outfits(self, user_id, sort="newest"):
+        query = {"user_id": user_id}
+        
+        if sort == "newest":
+            cursor = self.collection.find(query).sort("created_at", -1)
+        elif sort == "oldest":
+            cursor = self.collection.find(query).sort("created_at", 1)
+        elif sort =="az":
+            cursor = self.collection.find(query).sort("outfit_name", 1)
+        else:
+            cursor = self.collection.find(query)
+            
         """Get all outfits for a user with clothing details"""
-        outfits = list(self.collection.find({"user_id": user_id}))
+        outfits = list(cursor)
 
         for outfit in outfits:
             outfit['_id'] = str(outfit['_id'])

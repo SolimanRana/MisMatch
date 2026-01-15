@@ -21,6 +21,9 @@ def create_app():
 
     from controllers.upload_controller import upload_bp
     app.register_blueprint(upload_bp)
+    
+    from controllers.settings_controller import settings_bp
+    app.register_blueprint(settings_bp)
 
     #Root Route
     @app.route("/")

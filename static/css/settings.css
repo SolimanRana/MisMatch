@@ -1,0 +1,147 @@
+/* ============================================
+   SETTINGS PAGE
+   ============================================ */
+
+body {
+  background-color: #f5efe4;
+  font-family: inherit;
+}
+
+/* Page container */
+.settings-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  border: 3px solid #d9cdb8;
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-shadow: 4px 4px 0 #d9cdb8;
+}
+
+/* Headings */
+.settings-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #3d3027;
+}
+
+.settings-container h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #5a4a3a;
+}
+
+/* Messages */
+.settings-error {
+  color: #a85555;
+  background: #f2dede;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.settings-success {
+  color: #3c763d;
+  background: #dff0d8;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+/* Forms */
+.settings-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-container input {
+  padding: 10px;
+  border: 2px solid #d9cdb8;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.settings-container button {
+  margin-top: 10px;
+  align-self: flex-start;
+  padding: 10px 24px;
+  background-color: #d9cdb8;
+  color: #3d3027;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.settings-container button:hover {
+  background-color: #c9b99a;
+}
+
+.settings-container button:active {
+  transform: scale(0.98);
+}
+
+/* Divider */
+.settings-divider {
+  margin: 30px 0;
+  border: none;
+  border-top: 2px dashed #d9cdb8;
+}
+
+/* ============================================
+   AVATAR SELECTION
+   ============================================ */
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.avatar-option {
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-option input {
+  display: none;
+}
+
+.avatar {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f5efe4;
+  border: 2px solid #d9cdb8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.avatar-option input:checked + .avatar {
+  background: #c9b99a;
+  border-color: #3d3027;
+}
+
+.avatar:hover {
+  transform: scale(1.1);
+}
+
+/* Back link */
+.settings-back {
+  display: inline-block;
+  margin-top: 30px;
+  text-decoration: none;
+  color: #5a4a3a;
+  font-weight: bold;
+}
+
+.settings-back:hover {
+  text-decoration: underline;
+}

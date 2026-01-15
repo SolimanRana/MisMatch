@@ -15,12 +15,21 @@ const shuffledClothing = {
   footwear: shuffleArray(clothingData.footwear)
 };
 
+const activeClothing = {
+  tops: [...shuffledClothing.tops],
+  bottoms: [...shuffledClothing.bottoms],
+  footwear: [...shuffledClothing.footwear],
+}
+
 // current index for each category
 let currentIndex = {
   tops: -1,      // -1 = no item yet (box shows "?") 
   bottoms: -1,
   footwear: -1
 };
+
+let modalCategory = null;
+
 
 // function to change item 
 function changeClothing(category, direction) {
@@ -51,31 +60,26 @@ function changeClothing(category, direction) {
 }
 
 // function to show image
-function displayClothing(category) {
+function displayClothing(category, forcedItem= null) {
   const box = document.getElementById(`${category}-box`);
-  const index = currentIndex[category];
 
-  if (index === -1) {
-    // show ?
-    box.innerHTML = '<span class="placeholder">?</span>';
+  let item;
+
+  if(forcedItem) {
+    item = forcedItem;
   } else {
-    // show image from shuffled list
-    const item = shuffledClothing[category][index];
-    let deleteBtn = '';
-
-    // Zeige Delete-Button nur bei eigenen Uploads
-    if (item.subcategory === 'custom') {
-      deleteBtn = `<button class="delete-item-btn" onclick="deleteClothingItem('${item._id}', '${category}')">🗑️</button>`;
+    const index = currentIndex[category];
+    if (index === -1) {
+      box.innerHTML = '<span class="placeholder">?</span>';
+      return;
     }
-
-    box.innerHTML = `
-      <img src="/${item.image_path}" 
-           alt="${item.subcategory_name}" 
-           class="clothing-image">
-      ${deleteBtn}
-    `;
+    item = shuffledClothing[category][index];
   }
-}
+  box.innerHTML = `
+  <img src="/${item.image_path}" class="clothing-image">
+  `;
+  }
+
 
 // Debugging
 console.log('Original Daten:', clothingData);
@@ -87,21 +91,25 @@ console.log('Footwear:', shuffledClothing.footwear.length);
 // MisMatch Button 
 function generateMismatchOutfit() {
   const categories = ['tops', 'bottoms', 'footwear'];
-  
+
   categories.forEach(category => {
     const items = shuffledClothing[category];
-    
-    if (items && items.length > 0) {
-      // choose random index
-      const randomIndex = Math.floor(Math.random() * items.length);
-      currentIndex[category] = randomIndex;
-      
-      displayClothing(category);
-    }
+
+    if (!items || items.length === 0) return;
+
+    const randomItem = items[Math.floor(Math.random() * items.length)];
+
+    displayClothing(category, randomItem);
+
+    // optional: Index sauber setzen für Save-Logik
+    currentIndex[category] = items.findIndex(
+      i => i._id === randomItem._id
+    );
   });
-  
+
   console.log('MisMatch Outfit generated!');
 }
+
 // Save Outfit Function
 function saveOutfit() {
   // Check if all items are selected
@@ -136,34 +144,6 @@ function saveOutfit() {
       .catch(error => {
         alert('Error: ' + error);
       });
-}
-
-// filter function hamburger menu (s1)
-function filterByCategory(category) {
-  const sections = {
-    'top': document.querySelector('.clothing-section:nth-child(1)'),
-    'bottom': document.querySelector('.clothing-section:nth-child(2)'),
-    'footwear': document.querySelector('.clothing-section:nth-child(3)')
-  };
-
-  if (category === 'all') {
-    // Show all sections
-    Object.values(sections).forEach(section => {
-      section.style.display = 'block';
-    });
-  } else {
-    // Hide all, then show selected
-    Object.entries(sections).forEach(([key, section]) => {
-      if (key === category) {
-        section.style.display = 'block';
-      } else {
-        section.style.display = 'none';
-      }
-    });
-  }
-
-  // Close dropdown menu
-  document.querySelector('.dropdown-menu').classList.remove('show');
 }
 
 // Upload Modal Functions (FR-S4)
@@ -228,3 +208,72 @@ function deleteClothingItem(itemId, category) {
         });
   }
 }
+ function togglePanel(category) {
+  const panel = document.getElementById(`panel-${category}`);
+
+  // close others
+  ['tops', 'bottoms', 'footwear'].forEach(cat => {
+    if (cat !== category) {
+      document.getElementById(`panel-${cat}`).style.display = 'none';
+    }
+  });
+
+  panel.style.display =
+    panel.style.display === 'block' ? 'none' : 'block';
+
+  populatePanel(category);
+}
+
+function populatePanel(category) {
+  const items = clothingData[category];
+  const panel = document.getElementById(`panel-${category}`);
+  const select = panel.querySelector('select');
+  const grid = document.getElementById(`grid-${category}`);
+
+  // COLORS FROM DB
+  const colors = [...new Set(
+    items.map(i => i.color).filter(Boolean)
+  )];
+
+  select.innerHTML = '<option value="all">All colors</option>';
+  colors.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c;
+    o.textContent = c;
+    select.appendChild(o);
+  });
+
+  renderGrid(category, items);
+}
+
+function applyColorFilter(category, color) {
+  if (color === 'all') {
+    activeClothing[category] = [...shuffledClothing[category]];
+  } else {
+    activeClothing[category] = shuffledClothing[category].filter(
+      item => item.color?.toLowerCase() === color.toLowerCase()
+    );
+  }
+
+  currentIndex[category] = -1;
+  displayClothing(category);
+  renderGrid(category, activeClothing[category]);
+}
+
+
+function renderGrid(category, items) {
+  const grid = document.getElementById(`grid-${category}`);
+  grid.innerHTML = '';
+
+  items.forEach(item => {
+    const img = document.createElement('img');
+    img.src = '/' + item.image_path;
+
+    img.onclick = () => {
+      displayClothing(category, item);
+      document.getElementById(`panel-${category}`).style.display = 'none';
+    };
+
+    grid.appendChild(img);
+  });
+} 
