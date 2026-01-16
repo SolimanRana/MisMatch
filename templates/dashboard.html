@@ -15,14 +15,9 @@
         <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
       </a>
       <h1 class="center-text">Your favorite outfit generator</h1>
-
-      <div class="user-menu">
-        <button class="user-btn" onclick="toggleMenu()">
-          Hello, {{ session.username }} 
-        </button>
-      <div class="user-dropdown" id="userDropdown">
-        <a href="/settings">Settings</a>
-        <a href="/logout">Logout</a>
+      <div class="user-info">
+        <span>Hello, {{ session.username }}!</span>
+        <a href="/logout" class="logout-btn">Logout</a>
       </div>
     </div>
 
@@ -126,6 +121,7 @@
           <div class="clothing-grid" id="grid-footwear"></div>
         </div>
       </div>
+    </div>
 
       <!-- Buttons bottom (nebeneinander, mittig) -->
       <div class="action-buttons">
@@ -161,12 +157,7 @@
   </div>
 
   <footer class="site-footer">
-    <p>
-      &copy; 2026 <strong>MisMatch</strong> –
-      <a href="https://www.fh-campuswien.ac.at" target="_blank" rel="noopener noreferrer">
-        FH Campus Wien
-      </a>
-    </p>
+    <p>&copy; 2026 <strong>MisMatch</strong> — FH Campus Wien</p>
   </footer>
 
   <!-- Clothing Data aus Python -->
@@ -177,19 +168,6 @@
       bottoms: {{ bottoms | tojson }},
       footwear: {{ footwear | tojson }}
     };
-
-    function toggleMenu() {
-      const menu = document.getElementById("userDropdown");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-    document.addEventListener("click", function (event) {
-      const menu = document.getElementById("userDropdown");
-      const button = document.querySelector(".user-btn");
-
-      if (!menu.contains(event.target) && !button.contains(event.target)) {
-        menu.style.display ="none";
-      }
-    });
   </script>
 
   <!-- JavaScript File -->

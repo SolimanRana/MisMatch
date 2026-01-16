@@ -20,15 +20,15 @@ header {
 .header-top {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 20px;
-  padding: 20px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 40px;
+  gap: 30px;
 }
 
 #logo {
   height: 100px;
   width: auto;
+  flex-shrink: 0;
 }
 
 .center-text {
@@ -38,6 +38,34 @@ header {
   text-align: center;
   margin: 0;
   color: #5a4a3a;
+  padding: 0 20px;
+}
+
+/* USER INFO (right side of header) */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.user-info span {
+  font-weight: 600;
+  color: #5a4a3a;
+}
+
+.logout-btn {
+  padding: 8px 20px;
+  background-color: #d9cdb8;
+  color: #3d3027;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #c9b99a;
 }
 
 /* NAVIGATION */
@@ -235,6 +263,7 @@ footer.site-footer a:hover {
     flex-direction: column;
     align-items: center;
     padding: 15px;
+    gap: 15px;
   }
 
   #logo {
@@ -243,6 +272,12 @@ footer.site-footer a:hover {
 
   .center-text {
     font-size: 1.1rem;
+    padding: 0;
+  }
+
+  .user-info {
+    flex-direction: column;
+    gap: 10px;
   }
 
   /* layout auf spalte umstellen */

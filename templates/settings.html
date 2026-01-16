@@ -1,65 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
-    <title>User Settings</title>
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
-</head>
-<body>
-    <div class="settings-container">
+{% extends "base_dashboard.html" %}
 
-        <h2>User Settings</h2>
+{% block title %}Settings - MisMatch{% endblock %}
 
-        {% if error %}
-        <p style="settings-error">{{ error }}</p>
-        {% endif %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+{% endblock %}
 
-        {% if success %}
-        <p style="settings-success">{{ success }}</p>
-        {% endif %}
+{% block content %}
+<div class="settings-container">
 
-        <h3>Change Username</h3>
-        <form method="POST">
-            <input type="hidden" name="action" value="change_username">
-            <input type="text" name="new_username" placeholder="New username" required>
-            <button type="submit">Update Username</button>
-        </form>
+    <h2>User Settings</h2>
 
-        <hr class="settings-divider">
+    {% if error %}
+    <p class="settings-error">{{ error }}</p>
+    {% endif %}
 
-        <h3>Change Password</h3>
-        <form method="POST">
-            <input type="hidden" name="action" value="change_password">
-            <input type="password" name="old_password" placeholder="Old password" required>
-            <input type="password" name="new_password" placeholder="New password" required>
-            <button type="submit">Update Password</button>
-        </form>
+    {% if success %}
+    <p class="settings-success">{{ success }}</p>
+    {% endif %}
 
-        <hr class="settings-divider">
-
-        <h3>Choose your Avatar</h3>
-        <form method="POST">
-            <input type="hidden" name="action" value="change_avatar">
-
-        <div class="avatar-grid">
-            {% for a in ["🙂","😎","🤓","🧑","👽","🐸","🐱"] %}
-            <label class="avatar-option">
-                <input type="radio" name="avatar" value="{{ a }}"
-                    {% if avatar == a %}checked{% endif %}>
-                <span class="avatar">{{ a }}</span>
-            </label>
-            {% endfor %}
+    <div class="settings-sections">
+        <div class="settings-section">
+            <h3>Change Username</h3>
+            <form method="POST">
+                <input type="hidden" name="action" value="change_username">
+                <input type="text" name="new_username" placeholder="New username" required>
+                <button type="submit">Update Username</button>
+            </form>
         </div>
 
-        <button type="submit">Save Avatar</button>
-    </form>
+        <div class="settings-section">
+            <h3>Change Password</h3>
+            <form method="POST">
+                <input type="hidden" name="action" value="change_password">
+                <input type="password" name="old_password" placeholder="Old password" required>
+                <input type="password" name="new_password" placeholder="New password" required>
+                <button type="submit">Update Password</button>
+            </form>
+        </div>
 
-        <a href="/dashboard" class="settings-back"> Back to Dashboard</a>
+        <div class="settings-section">
+            <h3>Choose your Avatar</h3>
+            <form method="POST">
+                <input type="hidden" name="action" value="change_avatar">
+
+                <div class="avatar-grid">
+                    {% for a in ["🙂","😎","🤓","🧑","👩","👽","🐸","🐱"] %}
+                    <label class="avatar-option">
+                        <input type="radio" name="avatar" value="{{ a }}"
+                            {% if avatar == a %}checked{% endif %}>
+                        <span class="avatar">{{ a }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <button type="submit">Save Avatar</button>
+            </form>
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

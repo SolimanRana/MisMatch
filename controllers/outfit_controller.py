@@ -14,7 +14,10 @@ def saved_outfits():
     service = OutfitService(current_app.db)
     outfits = service.get_user_outfits(session.get("user_id"), sort=sort)
 
-    return render_template("saved_outfits.html", outfits=outfits, sort=sort)
+    return render_template("saved_outfits.html", 
+                         outfits=outfits, 
+                         sort=sort,
+                         active_page='saved-outfits')
 
 @outfit_bp.route("/api/save-outfit", methods=["POST"])
 def save_outfit():
@@ -79,4 +82,5 @@ def edit_outfit(outfit_id):
                            outfit=outfit,
                            tops=tops,
                            bottoms=bottoms,
-                           footwear=footwear)
+                           footwear=footwear,
+                           active_page='saved-outfits')

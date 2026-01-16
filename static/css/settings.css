@@ -2,92 +2,118 @@
    SETTINGS PAGE
    ============================================ */
 
-body {
-  background-color: #f5efe4;
-  font-family: inherit;
-}
-
 /* Page container */
 .settings-container {
-  max-width: 700px;
+  max-width: 1400px;
   margin: 40px auto;
-  background: #fff;
-  border: 3px solid #d9cdb8;
-  border-radius: 10px;
-  padding: 30px 40px;
-  box-shadow: 4px 4px 0 #d9cdb8;
+  padding: 40px 60px;
 }
 
-/* Headings */
+/* Main heading */
 .settings-container h2 {
   text-align: center;
-  margin-bottom: 30px;
-  color: #3d3027;
-}
-
-.settings-container h3 {
-  margin-top: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   color: #5a4a3a;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 /* Messages */
 .settings-error {
   color: #a85555;
   background: #f2dede;
-  padding: 10px;
+  padding: 15px;
   border-radius: 6px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: 'Arial', 'Helvetica', sans-serif;
 }
 
 .settings-success {
   color: #3c763d;
   background: #dff0d8;
-  padding: 10px;
+  padding: 15px;
   border-radius: 6px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+}
+
+/* Settings sections layout - 3 columns on desktop */
+.settings-sections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 30px;
+}
+
+/* Individual section */
+.settings-section {
+  background: #fff;
+  border: 3px solid #d9cdb8;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 4px 4px 0 #d9cdb8;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section headings */
+.settings-section h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #5a4a3a;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 /* Forms */
-.settings-container form {
+.settings-section form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
+  flex: 1;
 }
 
-.settings-container input {
-  padding: 10px;
+.settings-section input[type="text"],
+.settings-section input[type="password"] {
+  padding: 12px;
   border: 2px solid #d9cdb8;
   border-radius: 6px;
   font-size: 1rem;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  background-color: #faf8f3;
+  transition: border-color 0.3s ease;
 }
 
-.settings-container button {
-  margin-top: 10px;
-  align-self: flex-start;
-  padding: 10px 24px;
+.settings-section input[type="text"]:focus,
+.settings-section input[type="password"]:focus {
+  outline: none;
+  border-color: #c9b99a;
+}
+
+.settings-section button {
+  margin-top: auto;
+  padding: 12px 30px;
   background-color: #d9cdb8;
   color: #3d3027;
   font-weight: bold;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 1rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-.settings-container button:hover {
+.settings-section button:hover {
   background-color: #c9b99a;
 }
 
-.settings-container button:active {
+.settings-section button:active {
   transform: scale(0.98);
-}
-
-/* Divider */
-.settings-divider {
-  margin: 30px 0;
-  border: none;
-  border-top: 2px dashed #d9cdb8;
 }
 
 /* ============================================
@@ -96,9 +122,10 @@ body {
 
 .avatar-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-  gap: 15px;
-  margin-top: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+  flex: 1;
 }
 
 .avatar-option {
@@ -111,37 +138,79 @@ body {
 }
 
 .avatar {
-  font-size: 2rem;
-  width: 60px;
-  height: 60px;
+  font-size: 2.5rem;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background: #f5efe4;
-  border: 2px solid #d9cdb8;
+  border: 3px solid #d9cdb8;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease, border-color 0.3s ease;
 }
 
 .avatar-option input:checked + .avatar {
   background: #c9b99a;
   border-color: #3d3027;
+  border-width: 4px;
 }
 
 .avatar:hover {
   transform: scale(1.1);
+  border-color: #c9b99a;
 }
 
-/* Back link */
-.settings-back {
-  display: inline-block;
-  margin-top: 30px;
-  text-decoration: none;
-  color: #5a4a3a;
-  font-weight: bold;
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Tablets - 2 columns */
+@media (max-width: 1200px) {
+  .settings-sections {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Avatar section spans both columns */
+  .settings-section:last-child {
+    grid-column: span 2;
+  }
 }
 
-.settings-back:hover {
-  text-decoration: underline;
+/* Mobile - 1 column */
+@media (max-width: 768px) {
+  .settings-container {
+    padding: 20px;
+  }
+
+  .settings-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-section {
+    padding: 20px;
+  }
+  
+  /* Reset avatar section span */
+  .settings-section:last-child {
+    grid-column: span 1;
+  }
+
+  .avatar-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .avatar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
 }
