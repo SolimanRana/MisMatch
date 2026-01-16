@@ -1,178 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">   
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard - MisMatch</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-</head>
+{% extends "base_dashboard.html" %}
 
-<body>
-  <header id="header">
-    <div class="header-top">
-      <a href="/dashboard">
-        <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
-      </a>
-      <h1 class="center-text">Your favorite outfit generator</h1>
-      <div class="user-info">
-        <span>Hello, {{ session.username }}!</span>
-        <a href="/logout" class="logout-btn">Logout</a>
+{% block title %}Dashboard - MisMatch{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+
+  <!-- Emoji Circle -->
+  <div class="emoji-circle">
+    <span class="emoji">
+      {{ session.avatar if session.avatar else "🙂" }}
+    </span>
+  </div>
+
+  <!-- Clothing Boxes (nebeneinander) -->
+  <div class="clothing-row">
+    <!-- TOPS Box -->
+    <div class="clothing-section">
+      <h3 class="section-label">TOPS</h3>
+
+      <div class="clothing-box-container">
+        <button class="arrow-btn left" onclick="changeClothing('tops', -1)">◀</button>
+
+        <div class="clothing-box clickable"
+             id="tops-box"
+             onclick="togglePanel('tops')">
+          <span class="placeholder">?</span>
+        </div>
+
+        <button class="arrow-btn right" onclick="changeClothing('tops', 1)">▶</button>
+      </div>
+
+      <!-- FILTER BUTTON -->
+      <button class="filter-btn" onclick="togglePanel('tops')">Filter</button>
+
+      <!-- FILTER PANEL -->
+      <div class="clothing-panel" id="panel-tops">
+        <select onchange="applyColorFilter('tops', this.value)">
+          <option value="all">All colors</option>
+        </select>
+
+        <div class="clothing-grid" id="grid-tops"></div>
       </div>
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="dashboard-nav">
-      <div class="nav-links">
-        <a href="/dashboard" class="nav-link active">Generator</a>
-        <a href="/saved-outfits" class="nav-link">Saved Outfits</a>
-        <a href="/settings" class="nav-link">Settings</a>
-      </div>
-    </nav>
-  </header>
+    <!-- BOTTOMS Box -->
+    <div class="clothing-section">
+      <h3 class="section-label">BOTTOMS</h3>
 
-  <main id="content">
-    <div class="dashboard-container">
+      <div class="clothing-box-container">
+        <button class="arrow-btn left" onclick="changeClothing('bottoms', -1)">◀</button>
 
-      <!-- Emoji Circle -->
-    <div class="emoji-circle">
-      <span class="emoji">
-          {{ session.avatar if session.avatar else "🙂" }}
-      </span>
-    </div>
-
-      <!-- Clothing Boxes (nebeneinander) -->
-      <div class="clothing-row">
-        <!-- TOPS Box -->
-        <div class="clothing-section">
-        <h3 class="section-label">TOPS</h3>
-
-        <div class="clothing-box-container">
-          <button class="arrow-btn left" onclick="changeClothing('tops', -1)">◀</button>
-
-          <div class="clothing-box clickable"
-              id="tops-box"
-              onclick="togglePanel('tops')">
-            <span class="placeholder">?</span>
-          </div>
-
-          <button class="arrow-btn right" onclick="changeClothing('tops', 1)">▶</button>
+        <div class="clothing-box clickable"
+             id="bottoms-box"
+             onclick="togglePanel('bottoms')">
+          <span class="placeholder">?</span>
         </div>
 
-        <!-- FILTER PANEL -->
-        <div class="clothing-panel" id="panel-tops">
-          <select onchange="applyColorFilter('tops', this.value)">
-            <option value="all">All colors</option>
-          </select>
-
-          <div class="clothing-grid" id="grid-tops"></div>
-        </div>
+        <button class="arrow-btn right" onclick="changeClothing('bottoms', 1)">▶</button>
       </div>
 
+      <!-- FILTER BUTTON -->
+      <button class="filter-btn" onclick="togglePanel('bottoms')">Filter</button>
 
-        <!-- BOTTOMS Box -->
-        <div class="clothing-section">
-        <h3 class="section-label">BOTTOMS</h3>
+      <!-- FILTER PANEL -->
+      <div class="clothing-panel" id="panel-bottoms">
+        <select onchange="applyColorFilter('bottoms', this.value)">
+          <option value="all">All colors</option>
+        </select>
 
-        <div class="clothing-box-container">
-          <button class="arrow-btn left" onclick="changeClothing('bottoms', -1)">◀</button>
-
-          <div class="clothing-box clickable"
-              id="bottoms-box"
-              onclick="togglePanel('bottoms')">
-            <span class="placeholder">?</span>
-          </div>
-
-          <button class="arrow-btn right" onclick="changeClothing('bottoms', 1)">▶</button>
-        </div>
-
-        <!-- FILTER PANEL -->
-        <div class="clothing-panel" id="panel-bottoms">
-          <select onchange="applyColorFilter('bottoms', this.value)">
-            <option value="all">All colors</option>
-          </select>
-
-          <div class="clothing-grid" id="grid-bottoms"></div>
-        </div>
-      </div>
-
-        <!-- FOOTWEAR Box -->
-      <div class="clothing-section">
-        <h3 class="section-label">FOOTWEAR</h3>
-
-        <div class="clothing-box-container">
-          <button class="arrow-btn left" onclick="changeClothing('footwear', -1)">◀</button>
-
-          <div class="clothing-box clickable"
-              id="footwear-box"
-              onclick="togglePanel('footwear')">
-            <span class="placeholder">?</span>
-          </div>
-
-          <button class="arrow-btn right" onclick="changeClothing('footwear', 1)">▶</button>
-        </div>
-
-        <!-- FILTER PANEL -->
-        <div class="clothing-panel" id="panel-footwear">
-          <select onchange="applyColorFilter('footwear', this.value)">
-            <option value="all">All colors</option>
-          </select>
-
-          <div class="clothing-grid" id="grid-footwear"></div>
-        </div>
+        <div class="clothing-grid" id="grid-bottoms"></div>
       </div>
     </div>
 
-      <!-- Buttons bottom (nebeneinander, mittig) -->
-      <div class="action-buttons">
-        <button class="mismatch-btn" onclick="generateMismatchOutfit()">MisMatch</button>
-        <button class="save-btn" onclick="saveOutfit()">Save Outfit</button>
-        <button class="upload-btn" onclick="openUploadModal()">📷 Upload</button>
-      </div>
-    </div>
-  </main>
+    <!-- FOOTWEAR Box -->
+    <div class="clothing-section">
+      <h3 class="section-label">FOOTWEAR</h3>
 
-  <!-- Upload Modal -->
-  <div id="upload-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeUploadModal()">&times;</span>
-      <h2>Upload Your Clothing</h2>
-      <form id="upload-form" enctype="multipart/form-data">
-        <div class="form-group">
-          <label>Category:</label>
-          <select id="upload-category" required>
-            <option value="">Select category...</option>
-            <option value="top">Top</option>
-            <option value="bottom">Bottom</option>
-            <option value="footwear">Footwear</option>
-          </select>
+      <div class="clothing-box-container">
+        <button class="arrow-btn left" onclick="changeClothing('footwear', -1)">◀</button>
+
+        <div class="clothing-box clickable"
+             id="footwear-box"
+             onclick="togglePanel('footwear')">
+          <span class="placeholder">?</span>
         </div>
-        <div class="form-group">
-          <label>Image:</label>
-          <input type="file" id="upload-image" accept="image/png, image/jpeg, image/jpg" required>
-        </div>
-        <button type="submit" class="save-btn">Upload</button>
-      </form>
+
+        <button class="arrow-btn right" onclick="changeClothing('footwear', 1)">▶</button>
+      </div>
+
+      <!-- FILTER BUTTON -->
+      <button class="filter-btn" onclick="togglePanel('footwear')">Filter</button>
+
+      <!-- FILTER PANEL -->
+      <div class="clothing-panel" id="panel-footwear">
+        <select onchange="applyColorFilter('footwear', this.value)">
+          <option value="all">All colors</option>
+        </select>
+
+        <div class="clothing-grid" id="grid-footwear"></div>
+      </div>
     </div>
   </div>
 
-  <footer class="site-footer">
-    <p>&copy; 2026 <strong>MisMatch</strong> — FH Campus Wien</p>
-  </footer>
+  <!-- Buttons bottom (nebeneinander, mittig) -->
+  <div class="action-buttons">
+    <button class="mismatch-btn" onclick="generateMismatchOutfit()">MisMatch</button>
+    <button class="save-btn" onclick="saveOutfit()">Save Outfit</button>
+    <button class="upload-btn" onclick="openUploadModal()">📷 Upload</button>
+  </div>
+</div>
 
-  <!-- Clothing Data aus Python -->
-  <script>
-    // Daten von Flask/Python in JavaScript verfügbar machen
-    const clothingData = {
-      tops: {{ tops | tojson }},
-      bottoms: {{ bottoms | tojson }},
-      footwear: {{ footwear | tojson }}
-    };
-  </script>
+<!-- Upload Modal -->
+<div id="upload-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeUploadModal()">&times;</span>
+    <h2>Upload Your Clothing</h2>
+    <form id="upload-form" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Category:</label>
+        <select id="upload-category" required>
+          <option value="">Select category...</option>
+          <option value="top">Top</option>
+          <option value="bottom">Bottom</option>
+          <option value="footwear">Footwear</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Image:</label>
+        <input type="file" id="upload-image" accept="image/png, image/jpeg, image/jpg" required>
+      </div>
+      <button type="submit" class="save-btn">Upload</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
 
-  <!-- JavaScript File -->
-  <script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+{% block extra_js %}
+<!-- Clothing Data aus Python -->
+<script>
+  // Daten von Flask/Python in JavaScript verfügbar machen
+  const clothingData = {
+    tops: {{ tops | tojson }},
+    bottoms: {{ bottoms | tojson }},
+    footwear: {{ footwear | tojson }}
+  };
+</script>
 
-
-</body>
-</html>
+<!-- JavaScript File -->
+<script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+{% endblock %}

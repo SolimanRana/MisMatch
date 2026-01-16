@@ -359,51 +359,84 @@
   cursor: pointer;
 }
 
-/* FILTER PANEL */
+/* FILTER BUTTON - Under each clothing box - SMALLER WIDTH */
+.filter-btn {
+  width: auto;
+  padding: 8px 30px;
+  margin-top: 10px;
+  background-color: #d9cdb8;
+  color: #3d3027;
+  border: 2px solid #4a4035;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-btn:hover {
+  background-color: #c9b99a;
+  transform: translateY(-2px);
+}
+
+.filter-btn:active {
+  transform: translateY(0);
+}
+
+/* FILTER PANEL - Made BIGGER */
 .clothing-panel {
   display: none;
-  margin-top: 10px;
-  padding: 12px;
+  margin-top: 15px;
+  padding: 20px;
   background: #faf8f3;
-  border: 2px solid #d4c5a9;
+  border: 3px solid #4a4035;
   border-radius: 8px;
-  max-width: 320px;
+  max-width: 400px;
+  box-shadow: 4px 4px 0 #d9cdb8;
 }
 
-/* COLOR SELECT */
+/* COLOR SELECT - Bigger */
 .clothing-panel select {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
   border-radius: 6px;
-  border: 1px solid #c9b99a;
+  border: 2px solid #4a4035;
   background: #e8dcc8;
   font-weight: bold;
+  font-size: 1rem;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  cursor: pointer;
 }
 
-/* GRID */
+/* GRID - Bigger with more items visible */
 .clothing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  max-height: 220px;
+  gap: 12px;
+  max-height: 350px;
   overflow-y: auto;
 }
 
-/* ITEMS */
+/* ITEMS - Bigger images */
 .clothing-grid img {
   width: 100%;
-  height: 80px;
+  height: 110px;
   object-fit: contain;
   background: white;
-  border: 2px solid #d9cdb8;
+  border: 3px solid #d9cdb8;
   border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.1s ease;
+  transition: transform 0.1s ease, border-color 0.2s ease;
 }
 
 .clothing-grid img:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  border-color: #4a4035;
 }
 
 /* OUTFIT FILTER (for saved outfits page) */
