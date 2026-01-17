@@ -539,3 +539,26 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+/* Delete Button for Custom Items */
+.clothing-box {
+  position: relative;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.delete-btn:hover {
+  background: red;
+}

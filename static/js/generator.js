@@ -59,13 +59,13 @@ function changeClothing(category, direction) {
   displayClothing(category);
 }
 
-// function to show image
-function displayClothing(category, forcedItem= null) {
+/// function to show image
+function displayClothing(category, forcedItem = null) {
   const box = document.getElementById(`${category}-box`);
 
   let item;
 
-  if(forcedItem) {
+  if (forcedItem) {
     item = forcedItem;
   } else {
     const index = currentIndex[category];
@@ -75,11 +75,14 @@ function displayClothing(category, forcedItem= null) {
     }
     item = shuffledClothing[category][index];
   }
-  box.innerHTML = `
-  <img src="/${item.image_path}" class="clothing-image">
-  `;
-  }
 
+  const isCustom = item.subcategory === 'custom';
+
+  box.innerHTML = `
+    ${isCustom ? `<button class="delete-btn" onclick="deleteClothingItem('${item._id}', '${category}')">🗑️</button>` : ''}
+    <img src="/${item.image_path}" class="clothing-image">
+  `;
+}
 
 // Debugging
 console.log('Original Daten:', clothingData);
@@ -298,3 +301,7 @@ document.addEventListener("click", function (event) {
     menu.classList.remove("show");
   }
 });
+
+
+
+
