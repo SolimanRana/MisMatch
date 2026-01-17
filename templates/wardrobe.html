@@ -1,35 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{ category | capitalize }} - MisMatch</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/wardrobe.css') }}">
-</head>
-<body>
+{% extends "base_dashboard.html" %}
 
-<header id="header">
-    <div class="header-top">
-        <a href="/dashboard">
-            <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
-        </a>
-        <h1 class="center-text">{{ category | capitalize }} Wardrobe</h1>
-    </div>
-</header>
+{% block title %}{{ category | capitalize }} - MisMatch{% endblock %}
 
-<main id="content">
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/wardrobe.css') }}">
+{% endblock %}
+
+{% block content %}
+<div style="padding: 40px 20px;">
+    <h2 style="text-align: center; margin-bottom: 30px; color: #5a4a3a; font-size: 2rem;">
+        {{ category | capitalize }} Wardrobe
+    </h2>
+    
     <div class="wardrobe-container">
-        {% for item in items %}
-        <div class="wardrobe-item">
-            <img src="/{{ item.image_path }}" alt="{{ item.subcategory_name }}">
-        </div>
-        {% endfor %}
+        {% if items %}
+            {% for item in items %}
+            <div class="wardrobe-item">
+                <img src="/{{ item.image_path }}" alt="{{ item.subcategory_name }}">
+                <p>{{ item.subcategory_name | replace('_', ' ') | title }}</p>
+                {% if item.color %}
+                <p style="font-size: 0.85rem; color: #8a7a6a;">Color: {{ item.color | capitalize }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div style="grid-column: span 3; text-align: center; padding: 60px 20px;">
+                <p style="font-size: 1.2rem; color: #8a7a6a;">No {{ category }}s found in your wardrobe yet.</p>
+                <p style="margin-top: 20px;">
+                    <a href="/dashboard" style="color: #5a4a3a; text-decoration: underline;">Go to Generator</a> 
+                    to start building your wardrobe!
+                </p>
+            </div>
+        {% endif %}
     </div>
-</main>
-
-<footer class="site-footer">
-    <p>&copy; 2026 <strong>MisMatch</strong> - FH Campus Wien</p>
-</footer>
-
-</body>
-</html>
+</div>
+{% endblock %}

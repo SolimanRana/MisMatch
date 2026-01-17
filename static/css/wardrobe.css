@@ -1,8 +1,10 @@
 .wardrobe-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
   padding: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .wardrobe-item {
@@ -10,11 +12,18 @@
   border: 2px solid #d9cdb8;
   border-radius: 10px;
   padding: 15px;
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wardrobe-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .wardrobe-item img {
   width: 100%;
-  height: auto;
+  height: 180px;
   object-fit: contain;
   border-radius: 8px;
 }
@@ -22,6 +31,7 @@
 .wardrobe-item p {
   margin-top: 10px;
   color: #5a4a3a;
+  font-size: 0.9rem;
 }
 
 .site-footer {
@@ -52,4 +62,34 @@ body {
 
 #content {
   flex: 1;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1400px) {
+  .wardrobe-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .wardrobe-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .wardrobe-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .wardrobe-item img {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wardrobe-container {
+    grid-template-columns: 1fr;
+  }
 }
