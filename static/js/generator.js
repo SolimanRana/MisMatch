@@ -276,3 +276,25 @@ function renderGrid(category, items) {
     grid.appendChild(img);
   });
 }
+
+// ============================================
+// HAMBURGER MENU
+// ============================================
+
+// Toggle the visibility of the menu when clicked
+function toggleHamburgerMenu() {
+  const menu = document.getElementById("hamburgerMenu");
+  if (menu) {
+    menu.classList.toggle("show");
+  }
+}
+
+// Close the menu if clicking outside of it
+document.addEventListener("click", function (event) {
+  const menu = document.getElementById("hamburgerMenu");
+  const button = document.querySelector(".hamburger-btn");
+
+  if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
+    menu.classList.remove("show");
+  }
+});

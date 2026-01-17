@@ -9,11 +9,13 @@
   background-color: #e8dcc8;
   padding: 15px 30px;
   border-bottom: 2px solid #d4c5a9;
+  position: relative;
 }
 
 .nav-links {
   display: flex;
   gap: 50px;
+  margin: 0 auto;
 }
 
 .nav-link {
@@ -33,6 +35,81 @@
 .nav-link.active {
   background-color: #c9b99a;
   color: #2a1f17;
+}
+
+/* Hamburger Menu Button */
+.menu-button {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger-btn {
+  background-color: #d9cdb8;
+  border: 2px solid #4a4035;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  width: 45px;
+  height: 45px;
+  justify-content: center;
+}
+
+.hamburger-btn span {
+  width: 25px;
+  height: 3px;
+  background-color: #3d3027;
+  border-radius: 2px;
+  display: block;
+}
+
+.hamburger-btn:hover {
+  background-color: #c9b99a;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background-color: #faf8f3;
+  border: 2px solid #4a4035;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  min-width: 180px;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.menu-item {
+  display: block;
+  padding: 12px 20px;
+  color: #5a4a3a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: #e8dcc8;
+}
+
+.menu-item:first-child {
+  border-radius: 6px 6px 0 0;
+}
+
+.menu-item:last-child {
+  border-radius: 0 0 6px 6px;
 }
 
 /* ============================================
@@ -63,6 +140,8 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .emoji {

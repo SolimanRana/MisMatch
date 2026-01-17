@@ -29,6 +29,20 @@
         <a href="/saved-outfits" class="nav-link {% if active_page == 'saved-outfits' %}active{% endif %}">Saved Outfits</a>
         <a href="/settings" class="nav-link {% if active_page == 'settings' %}active{% endif %}">Settings</a>
       </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="menu-button">
+        <button class="hamburger-btn" onclick="toggleHamburgerMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="dropdown-menu" id="hamburgerMenu">
+          <a href="/wardrobe/top" class="menu-item">Tops</a>
+          <a href="/wardrobe/bottom" class="menu-item">Bottoms</a>
+          <a href="/wardrobe/footwear" class="menu-item">Footwear</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -41,6 +55,24 @@
   <footer class="site-footer">
     <p>&copy; 2026 <strong>MisMatch</strong> — FH Campus Wien</p>
   </footer>
+
+  <script>
+    // Toggle the visibility of the menu when clicked
+    function toggleHamburgerMenu() {
+      const menu = document.getElementById("hamburgerMenu");
+      menu.classList.toggle("show");
+    }
+
+    // Close the menu if clicking outside of it
+    document.addEventListener("click", function (event) {
+      const menu = document.getElementById("hamburgerMenu");
+      const button = document.querySelector(".hamburger-btn");
+
+      if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
 
   {% block extra_js %}{% endblock %}
 </body>
