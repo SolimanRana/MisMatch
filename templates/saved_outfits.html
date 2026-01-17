@@ -17,8 +17,13 @@
         </a>
         <h1 class="center-text">Your favorite outfit generator</h1>
         <div class="user-info">
-            <span>Hello, {{ session.username }}!</span>
-            <a href="/logout" class="logout-btn">Logout</a>
+            <span class="username-btn" onclick="toggleUserMenu()">Hello, {{ session.username }}!</span>
+            
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown" id="userDropdown">
+                <a href="/settings" class="user-menu-item">Settings</a>
+                <a href="/logout" class="user-menu-item">Logout</a>
+            </div>
         </div>
     </div>
 
@@ -27,6 +32,20 @@
             <a href="/dashboard" class="nav-link">Generator</a>
             <a href="/saved-outfits" class="nav-link active">Saved Outfits</a>
             <a href="/settings" class="nav-link">Settings</a>
+        </div>
+        
+        <!-- Hamburger Menu -->
+        <div class="menu-button">
+            <button class="hamburger-btn" onclick="toggleHamburgerMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="dropdown-menu" id="hamburgerMenu">
+                <a href="/wardrobe/top" class="menu-item">Tops</a>
+                <a href="/wardrobe/bottom" class="menu-item">Bottoms</a>
+                <a href="/wardrobe/footwear" class="menu-item">Footwear</a>
+            </div>
         </div>
     </nav>
 </header>
@@ -79,6 +98,44 @@
 </footer>
 
 <script>
+    // Toggle User Menu
+    function toggleUserMenu() {
+        const menu = document.getElementById("userDropdown");
+        if (menu) {
+            menu.classList.toggle("show");
+        }
+    }
+
+    // Toggle Hamburger Menu
+    function toggleHamburgerMenu() {
+        const menu = document.getElementById("hamburgerMenu");
+        if (menu) {
+            menu.classList.toggle("show");
+        }
+    }
+
+    // Close menus if clicking outside
+    document.addEventListener("click", function (event) {
+        const hamburgerMenu = document.getElementById("hamburgerMenu");
+        const hamburgerBtn = document.querySelector(".hamburger-btn");
+        const userMenu = document.getElementById("userDropdown");
+        const userBtn = document.querySelector(".username-btn");
+
+        // Close hamburger menu
+        if (hamburgerMenu && hamburgerBtn && 
+            !hamburgerMenu.contains(event.target) && 
+            !hamburgerBtn.contains(event.target)) {
+            hamburgerMenu.classList.remove("show");
+        }
+
+        // Close user menu
+        if (userMenu && userBtn && 
+            !userMenu.contains(event.target) && 
+            !userBtn.contains(event.target)) {
+            userMenu.classList.remove("show");
+        }
+    });
+
     function editOutfit(outfitId) {
         window.location.href = '/edit-outfit/' + outfitId;
     }
