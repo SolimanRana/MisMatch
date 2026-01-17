@@ -36,8 +36,13 @@ BOTTOMS_SUBCATEGORIES = {
 }
 
 FOOTWEAR_SUBCATEGORIES = {
-    "1": "sneakers"
+    "1": "sneakers",
+    "2": "loafer_mules",
+    "3": "heels",
+    "4": "boots"
 }
+
+
 
 def parse_filename(filename, category):
     """
@@ -204,8 +209,17 @@ def populate_database():
         'footwear': {
             'folder': 'footwear',
             'files': [
+                '1_black.jpeg',
+                '1_black.png',
+                '1_blue.png',
+                '1_grey.png',
+                '1_red.png',
                 '1_white.png',
-                'default_footwear.png',
+                '2_black.png',
+                '3_beige.png',
+                '3_black.png',
+                '3_brown.png',
+
             ]
         }
     }
