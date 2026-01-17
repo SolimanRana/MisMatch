@@ -208,20 +208,19 @@ function deleteClothingItem(itemId, category) {
         });
   }
 }
- function togglePanel(category) {
+
+// UPDATED: Toggle panel WITHOUT closing others
+function togglePanel(category) {
   const panel = document.getElementById(`panel-${category}`);
 
-  // close others
-  ['tops', 'bottoms', 'footwear'].forEach(cat => {
-    if (cat !== category) {
-      document.getElementById(`panel-${cat}`).style.display = 'none';
-    }
-  });
-
+  // Just toggle this panel - don't close others!
   panel.style.display =
     panel.style.display === 'block' ? 'none' : 'block';
 
-  populatePanel(category);
+  // Only populate if we're opening it
+  if (panel.style.display === 'block') {
+    populatePanel(category);
+  }
 }
 
 function populatePanel(category) {
@@ -271,9 +270,9 @@ function renderGrid(category, items) {
 
     img.onclick = () => {
       displayClothing(category, item);
-      document.getElementById(`panel-${category}`).style.display = 'none';
+      // Don't close the panel anymore - let user keep filtering
     };
 
     grid.appendChild(img);
   });
-} 
+}

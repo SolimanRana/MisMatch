@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}MisMatch{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  {% block extra_css %}{% endblock %}
 </head>
 
 <body>
@@ -19,6 +20,10 @@
       <div class="user-info">
         <span>Hello, {{ session.username }}!</span>
         <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+      {% else %}
+      <div class="user-info">
+        <!-- Empty space for layout balance when not logged in -->
       </div>
       {% endif %}
     </div>
@@ -35,7 +40,7 @@
 
     <section class="auth">
       {% block auth_content %}
-      <!-- CONTENT PARZ -->
+      <!-- Content goes here -->
       {% endblock %}
     </section>
   </main>
@@ -48,5 +53,7 @@
       </a>
     </p>
   </footer>
+
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

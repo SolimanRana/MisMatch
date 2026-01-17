@@ -43,5 +43,6 @@ def settings():
         "settings.html",
         avatar=session.get("avatar", "🙂"),
         error=error,
-        success=success
+        success=success,
+        active_page='settings'
     )

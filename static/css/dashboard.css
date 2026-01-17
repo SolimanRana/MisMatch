@@ -4,7 +4,7 @@
 
 .dashboard-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: #e8dcc8;
   padding: 15px 30px;
@@ -13,7 +13,7 @@
 
 .nav-links {
   display: flex;
-  gap: 30px;
+  gap: 50px;
 }
 
 .nav-link {
@@ -33,80 +33,6 @@
 .nav-link.active {
   background-color: #c9b99a;
   color: #2a1f17;
-}
-
-/* ============================================
-   HAMBURGER MENU (rechts in Navigation)
-   ============================================ */
-.menu-button {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-}
-
-.hamburger-btn {
-  padding: 10px 15px;
-  background-color: #d9cdb8;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: center;
-  transition: background-color 0.3s ease;
-}
-
-.hamburger-btn span {
-  width: 25px;
-  height: 3px;
-  background-color: #3d3027;
-  border-radius: 2px;
-}
-
-.hamburger-btn:hover {
-  background-color: #c9b99a;
-}
-
-/* Dropdown Menu */
-#hamburgerMenu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #faf8f3;
-  border: 2px solid #d4c5a9;
-  border-radius: 8px;
-  margin-top: 5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  min-width: 150px;
-}
-
-.menu-button.active #hamburgerMenu {
-  display: block;
-}
-
-.menu-item {
-  display: block;
-  padding: 12px 20px;
-  color: #5a4a3a;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.menu-item:hover {
-  background-color: #e8dcc8;
-}
-
-.menu-item:first-child:hover {
-  border-radius: 6px 6px 0 0;
-}
-
-.menu-item:last-child:hover {
-  border-radius: 0 0 6px 6px;
 }
 
 /* ============================================
@@ -213,6 +139,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .placeholder {
@@ -233,7 +160,8 @@
 }
 
 .mismatch-btn,
-.save-btn {
+.save-btn,
+.upload-btn {
   padding: 15px 40px;
   background-color: #d9cdb8;
   color: #3d3027;
@@ -304,7 +232,8 @@
   }
 
   .mismatch-btn,
-  .save-btn {
+  .save-btn,
+  .upload-btn {
     width: 100%;
   }
 
@@ -345,6 +274,7 @@
 .upload-btn:hover {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 #4a4035;
+  background: #7a94a4;
 }
 
 /* Modal */
@@ -424,94 +354,109 @@
   background: #a85555;
 }
 
-.clothing-box {
-  position: relative;
-}
-
-
-/* USER MENU */
-.user-menu {
-    position: relative;
-}
-
-.user-btn {
-    background: none;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.user-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 120%;
-    background: white;
-    border: 1px solid #ccc;
-    min-width: 150px;
-    z-index: 100;
-}
-
-.user-dropdown a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-}
-
-.user-dropdown a:hover {
-    background: #eee;
-}
-
-
 /* CLICKABLE BOX */
 .clothing-box.clickable {
   cursor: pointer;
 }
 
-/* FILTER PANEL */
+/* FILTER BUTTON - Under each clothing box - SMALLER WIDTH */
+.filter-btn {
+  width: auto;
+  padding: 8px 30px;
+  margin-top: 10px;
+  background-color: #d9cdb8;
+  color: #3d3027;
+  border: 2px solid #4a4035;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-btn:hover {
+  background-color: #c9b99a;
+  transform: translateY(-2px);
+}
+
+.filter-btn:active {
+  transform: translateY(0);
+}
+
+/* FILTER PANEL - Made BIGGER */
 .clothing-panel {
   display: none;
-  margin-top: 10px;
-  padding: 12px;
+  margin-top: 15px;
+  padding: 20px;
   background: #faf8f3;
-  border: 2px solid #d4c5a9;
+  border: 3px solid #4a4035;
   border-radius: 8px;
-  max-width: 320px;
+  max-width: 400px;
+  box-shadow: 4px 4px 0 #d9cdb8;
 }
 
-/* COLOR SELECT */
+/* COLOR SELECT - Bigger */
 .clothing-panel select {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
   border-radius: 6px;
-  border: 1px solid #c9b99a;
+  border: 2px solid #4a4035;
   background: #e8dcc8;
   font-weight: bold;
+  font-size: 1rem;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  cursor: pointer;
 }
 
-/* GRID */
+/* GRID - Bigger with more items visible */
 .clothing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  max-height: 220px;
+  gap: 12px;
+  max-height: 350px;
   overflow-y: auto;
 }
 
-/* ITEMS */
+/* ITEMS - Bigger images */
 .clothing-grid img {
   width: 100%;
-  height: 80px;
+  height: 110px;
   object-fit: contain;
   background: white;
-  border: 2px solid #d9cdb8;
+  border: 3px solid #d9cdb8;
   border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.1s ease;
+  transition: transform 0.1s ease, border-color 0.2s ease;
 }
 
 .clothing-grid img:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  border-color: #4a4035;
+}
+
+/* OUTFIT FILTER (for saved outfits page) */
+.outfit-filter {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.outfit-filter label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #5a4a3a;
+}
+
+.outfit-filter select {
+  padding: 8px 15px;
+  border: 2px solid #d9cdb8;
+  border-radius: 6px;
+  background: #faf8f3;
+  color: #3d3027;
+  font-weight: 600;
+  cursor: pointer;
 }

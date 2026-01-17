@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}MisMatch{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+  <header id="header">
+    <div class="header-top">
+      <a href="/dashboard">
+        <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
+      </a>
+      <h1 class="center-text">Your favorite outfit generator</h1>
+      <div class="user-info">
+        <span>Hello, {{ session.username }}!</span>
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="dashboard-nav">
+      <div class="nav-links">
+        <a href="/dashboard" class="nav-link {% if active_page == 'generator' %}active{% endif %}">Generator</a>
+        <a href="/saved-outfits" class="nav-link {% if active_page == 'saved-outfits' %}active{% endif %}">Saved Outfits</a>
+        <a href="/settings" class="nav-link {% if active_page == 'settings' %}active{% endif %}">Settings</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="content">
+    {% block content %}
+    <!-- Page-specific content goes here -->
+    {% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 <strong>MisMatch</strong> — FH Campus Wien</p>
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

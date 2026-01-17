@@ -1,101 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Edit Outfit - MisMatch</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-</head>
+{% extends "base_dashboard.html" %}
 
-<body>
-<header id="header">
-  <div class="header-top">
-    <a href="/dashboard">
-      <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
-    </a>
-    <h1 class="center-text">Edit Outfit</h1>
-    <div class="user-info">
-      <span>Hello, {{ session.username }}!</span>
-      <a href="/logout" class="logout-btn">Logout</a>
+{% block title %}Edit Outfit - MisMatch{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+
+  <!-- Outfit Name -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <input type="text" id="outfit-name" value="{{ outfit.outfit_name }}"
+           style="font-size: 1.5rem; padding: 10px; border: 3px solid #4a4035; border-radius: 5px; text-align: center;">
+  </div>
+
+  <!-- Clothing Boxes -->
+  <div class="clothing-row">
+    <!-- TOPS Box -->
+    <div class="clothing-section">
+      <h3 class="section-label">TOPS</h3>
+      <div class="clothing-box-container">
+        <button class="arrow-btn left" onclick="changeClothing('tops', -1)">◀</button>
+        <div class="clothing-box" id="tops-box">
+          <span class="placeholder">?</span>
+        </div>
+        <button class="arrow-btn right" onclick="changeClothing('tops', 1)">▶</button>
+      </div>
+    </div>
+
+    <!-- BOTTOMS Box -->
+    <div class="clothing-section">
+      <h3 class="section-label">BOTTOMS</h3>
+      <div class="clothing-box-container">
+        <button class="arrow-btn left" onclick="changeClothing('bottoms', -1)">◀</button>
+        <div class="clothing-box" id="bottoms-box">
+          <span class="placeholder">?</span>
+        </div>
+        <button class="arrow-btn right" onclick="changeClothing('bottoms', 1)">▶</button>
+      </div>
+    </div>
+
+    <!-- FOOTWEAR Box -->
+    <div class="clothing-section">
+      <h3 class="section-label">FOOTWEAR</h3>
+      <div class="clothing-box-container">
+        <button class="arrow-btn left" onclick="changeClothing('footwear', -1)">◀</button>
+        <div class="clothing-box" id="footwear-box">
+          <span class="placeholder">?</span>
+        </div>
+        <button class="arrow-btn right" onclick="changeClothing('footwear', 1)">▶</button>
+      </div>
     </div>
   </div>
 
-  <!-- Navigation Bar -->
-  <nav class="dashboard-nav">
-    <div class="nav-links">
-      <a href="/dashboard" class="nav-link">Generator</a>
-      <a href="/saved-outfits" class="nav-link active">Saved Outfits</a>
-      <a href="/settings" class="nav-link">Settings</a>
-    </div>
-  </nav>
-</header>
-
-<main id="content">
-  <div class="dashboard-container">
-
-    <!-- Outfit Name -->
-    <div style="text-align: center; margin-bottom: 20px;">
-      <input type="text" id="outfit-name" value="{{ outfit.outfit_name }}"
-             style="font-size: 1.5rem; padding: 10px; border: 3px solid #4a4035; border-radius: 5px; text-align: center;">
-    </div>
-
-    <!-- Clothing Boxes -->
-    <div class="clothing-row">
-      <!-- TOPS Box -->
-      <div class="clothing-section">
-        <h3 class="section-label">TOPS</h3>
-        <div class="clothing-box-container">
-          <button class="arrow-btn left" onclick="changeClothing('tops', -1)">◀</button>
-          <div class="clothing-box" id="tops-box">
-            <span class="placeholder">?</span>
-          </div>
-          <button class="arrow-btn right" onclick="changeClothing('tops', 1)">▶</button>
-        </div>
-      </div>
-
-      <!-- BOTTOMS Box -->
-      <div class="clothing-section">
-        <h3 class="section-label">BOTTOMS</h3>
-        <div class="clothing-box-container">
-          <button class="arrow-btn left" onclick="changeClothing('bottoms', -1)">◀</button>
-          <div class="clothing-box" id="bottoms-box">
-            <span class="placeholder">?</span>
-          </div>
-          <button class="arrow-btn right" onclick="changeClothing('bottoms', 1)">▶</button>
-        </div>
-      </div>
-
-      <!-- FOOTWEAR Box -->
-      <div class="clothing-section">
-        <h3 class="section-label">FOOTWEAR</h3>
-        <div class="clothing-box-container">
-          <button class="arrow-btn left" onclick="changeClothing('footwear', -1)">◀</button>
-          <div class="clothing-box" id="footwear-box">
-            <span class="placeholder">?</span>
-          </div>
-          <button class="arrow-btn right" onclick="changeClothing('footwear', 1)">▶</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Buttons -->
-    <div class="action-buttons">
-      <button class="save-btn" onclick="saveChanges()">Save Changes</button>
-      <button class="mismatch-btn" onclick="window.location.href='/saved-outfits'">Cancel</button>
-    </div>
+  <!-- Buttons -->
+  <div class="action-buttons">
+    <button class="save-btn" onclick="saveChanges()">Save Changes</button>
+    <button class="mismatch-btn" onclick="window.location.href='/saved-outfits'">Cancel</button>
   </div>
-</main>
+</div>
+{% endblock %}
 
-<footer class="site-footer">
-  <p>&copy; 2026 <strong>MisMatch</strong> – FH Campus Wien</p>
-</footer>
-
+{% block extra_js %}
 <script>
   const clothingData = {
     tops: {{ tops | tojson }},
-  bottoms: {{ bottoms | tojson }},
-  footwear: {{ footwear | tojson }}
+    bottoms: {{ bottoms | tojson }},
+    footwear: {{ footwear | tojson }}
   };
 
   const outfitId = "{{ outfit._id }}";
@@ -164,16 +132,15 @@
         footwear_id: clothingData.footwear[currentIndex.footwear]._id
       })
     })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                alert('Outfit saved!');
-                window.location.href = '/saved-outfits';
-              }
-            });
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Outfit saved!');
+        window.location.href = '/saved-outfits';
+      }
+    });
   }
 
   initializeIndices();
 </script>
-</body>
-</html>
+{% endblock %}
