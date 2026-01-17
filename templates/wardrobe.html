@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ category | capitalize }} - MisMatch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/wardrobe.css') }}">
+</head>
+<body>
+
+<header id="header">
+    <div class="header-top">
+        <a href="/dashboard">
+            <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
+        </a>
+        <h1 class="center-text">{{ category | capitalize }} Wardrobe</h1>
+    </div>
+</header>
+
+<main id="content">
+    <div class="wardrobe-container">
+        {% for item in items %}
+        <div class="wardrobe-item">
+            <img src="/{{ item.image_path }}" alt="{{ item.subcategory_name }}">
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; 2026 <strong>MisMatch</strong> - FH Campus Wien</p>
+</footer>
+
+</body>
+</html>
