@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, redirect
 from pymongo import MongoClient
+from controllers.wardrobe_controller import wardrobe_bp
 
 def create_app():
     app = Flask(__name__)
@@ -24,6 +25,9 @@ def create_app():
     
     from controllers.settings_controller import settings_bp
     app.register_blueprint(settings_bp)
+    
+    from controllers.wardrobe_controller import wardrobe_bp
+    app.register_blueprint(wardrobe_bp)
 
     #Root Route
     @app.route("/")

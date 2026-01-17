@@ -38,9 +38,11 @@
 /* ============================================
    HAMBURGER MENU (rechts in Navigation)
    ============================================ */
-
 .menu-button {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
 }
 
 .hamburger-btn {
@@ -68,7 +70,7 @@
 }
 
 /* Dropdown Menu */
-.dropdown-menu {
+#hamburgerMenu {
   display: none;
   position: absolute;
   top: 100%;
@@ -82,7 +84,7 @@
   min-width: 150px;
 }
 
-.menu-button:hover .dropdown-menu {
+.menu-button.active #hamburgerMenu {
   display: block;
 }
 
