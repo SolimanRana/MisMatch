@@ -173,7 +173,7 @@ def populate_database():
                 '3_yellow_round.png',
                 '6_black_v.png',
                 '6_white_round.png',
-                'default_tops.png',
+
             ]
         },
         'bottom': {
@@ -203,7 +203,7 @@ def populate_database():
                 '6_middleblue.png',
                 '7_black.png',
                 '7_lightgray.png',
-                'default_bottom.png',
+
             ]
         },
         'footwear': {
@@ -218,7 +218,7 @@ def populate_database():
                 '2_black.png',
                 '3_beige.png',
                 '3_black.png',
-                '3_brown.png',
+
 
             ]
         }
