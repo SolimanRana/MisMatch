@@ -606,7 +606,7 @@
   position: relative;
 }
 
-.delete-btn {
+.clothing-box .delete-btn {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -620,6 +620,6 @@
   z-index: 10;
 }
 
-.delete-btn:hover {
+.clothing-box .delete-btn:hover {
   background: red;
 }
