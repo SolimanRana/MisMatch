@@ -37,6 +37,28 @@ outfits collection (created when users save outfits)
 
 -------------------
 
+For daily workflow: 
+
+# 1. Activate venv
+source venv/bin/activate 
+
+# 2. Pull latest changes
+git pull origin main
+
+# 3. If requirements.txt changed, reinstall dependencies
+pip install -r requirements.txt
+
+# 4. If you added new clothing items, re-run populate script
+cd scripts
+python populate_db.py
+cd ..
+
+# 5. Run app
+python app.py 
+
+-------------------
+
+
 NEUES TERMINAL ALS ADMIN AUSFÜHREN (am PC selbst ich habe PowerShell verwendet):
 net start MongoDB
 
