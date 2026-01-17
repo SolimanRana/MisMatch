@@ -17,8 +17,12 @@
       </a>
       <h1 class="center-text">Your favorite outfit generator</h1>
       <div class="user-info">
-        <span>Hello, {{ session.username }}!</span>
-        <a href="/logout" class="logout-btn">Logout</a>
+        <span class="username-btn" onclick="toggleUserMenu()">Hello, {{ session.username }}!</span>
+        <!-- <a href="/logout" class="logout-btn">Logout</a> -->
+        <div class="user-dropdown" id="userDropdown">
+           <a href="/settings" class="user-menu-item">Settings</a>
+           <a href="/logout" class="user-menu-item">Logout</a>
+        </div>
       </div>
     </div>
 
@@ -48,7 +52,6 @@
 
   <main id="content">
     {% block content %}
-    <!-- Page-specific content goes here -->
     {% endblock %}
   </main>
 
@@ -57,19 +60,31 @@
   </footer>
 
   <script>
-    // Toggle the visibility of the menu when clicked
+    // Toggle User Menu
+    function toggleUserMenu() {
+      const menu = document.getElementById("userDropdown");
+      menu.classList.toggle("show");
+    }
+
+    // Toggle Hamburger Menu
     function toggleHamburgerMenu() {
       const menu = document.getElementById("hamburgerMenu");
       menu.classList.toggle("show");
     }
 
-    // Close the menu if clicking outside of it
+    // Close the menu if clicking outside
     document.addEventListener("click", function (event) {
-      const menu = document.getElementById("hamburgerMenu");
-      const button = document.querySelector(".hamburger-btn");
+      const hamburgerMenu = document.getElementById("hamburgerMenu");
+      const hamburgerBtn = document.querySelector(".hamburger-btn");
+      const userMenu = document.getElementById(".userDropdown");
+      const userBtn = document.querySelector(".username-btn")
 
-      if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
-        menu.classList.remove("show");
+      if (hamburgerMenu && hamburgerBtn && !hamburgerMenu.contains(event.target) && !hamburgerBtn.contains(event.target)) {
+        hamburgerMenu.classList.remove("show");
+      }
+
+      if (userMenu && userBtn && !userMenu.contains(event.target) && !userBtn.contains(event.target)) {
+        userMenu.classList.remove("show");
       }
     });
   </script>

@@ -112,6 +112,67 @@
   border-radius: 0 0 6px 6px;
 }
 
+
+/* User Info Dropdown */
+.user-info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.username-btn {
+  cursor: pointer;
+  padding: 8px 15px;
+  background-color: #d9cdb8;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #5a4a3a;
+  transition: background-color 0.3s ease;
+}
+
+.username-btn:hover {
+  background-color: #c9b99a;
+}
+/* User Dropdown Menu */
+.user-dropdown {
+  display: none;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background-color: #faf8f3;
+  border: 2px solid #4a4035;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  min-width: 150px;
+}
+
+.user-dropdown.show {
+  display: block;
+}
+
+.user-menu-item {
+  display: block;
+  padding: 12px 20px;
+  color: #5a4a3a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.user-menu-item:hover {
+  background-color: #e8dcc8;
+}
+
+.user-menu-item:first-child {
+  border-radius: 6px 6px 0 0;
+}
+
+.user-menu-item:last-child {
+  border-radius: 0 0 6px 6px;
+}
+
 /* ============================================
    DASHBOARD CONTAINER
    ============================================ */
