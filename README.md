@@ -201,7 +201,7 @@ Open your web browser and navigate to this URL.
 - Select "Logout" from the dropdown menu
 
 ## Clothing Categories Reference
-
+Used to categorise the clothing items in the database, just for devs.
 ### TOPS
 - 1a = Oversized/regular t-shirts
 - 1b = Slim-fit t-shirts
@@ -220,3 +220,10 @@ Open your web browser and navigate to this URL.
 - 5 = Skirts
 - 6 = Shorts
 - 7 = Sweatpants
+
+### SHOES
+- 1 = Sneaker
+- 2 = Loafer/ Mules
+- 3 = Heels
+- 4 = Boots
+
