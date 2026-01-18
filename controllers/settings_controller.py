@@ -33,6 +33,7 @@ def settings():
                 success = "Username updated successfully"
 
             # FR-C4: ...and password using the edit button
+            elif action == "change_password":
                 old_pw = request.form.get("old_password")
                 new_pw = request.form.get("new_password")
                 service.change_password(session["user_id"], old_pw, new_pw)
