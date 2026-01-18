@@ -3,12 +3,15 @@ MisMatch Database Population Script
 Populates MongoDB with clothing items from image files
 """
 
+#requirement
+#m2: use images of basic clothing items provided by the db
+
 import os
 import re
 from pymongo import MongoClient
 from datetime import datetime
 
-# MongoDB connection
+# MongoDB connection sttings
 MONGODB_URI = "mongodb://localhost:27017/"  # Update if your MongoDB is hosted elsewhere
 DATABASE_NAME = "mismatch"
 COLLECTION_NAME = "clothing"
@@ -24,6 +27,7 @@ TOPS_SUBCATEGORIES = {
     "6": "tanktop",
     "7": "other"
 }
+#same for bottoms
 
 BOTTOMS_SUBCATEGORIES = {
     "1": "jeans",
@@ -34,7 +38,7 @@ BOTTOMS_SUBCATEGORIES = {
     "6": "shorts",
     "7": "sweatpants"
 }
-
+#footwear
 FOOTWEAR_SUBCATEGORIES = {
     "1": "sneakers",
     "2": "loafer_mules",
@@ -71,15 +75,17 @@ def parse_filename(filename, category):
     
     # Split by underscore
     parts = name.split('_')
-    
+
+    #return non eif filename format is invalid
     if len(parts) < 2:
         print(f"Warning: Could not parse filename: {filename}")
         return None
-    
+
+    #extract subcategory and color from filename parts
     subcategory = parts[0]
     color = parts[1] if len(parts) > 1 else None
     
-    # Get subcategory name
+    # Get subcategory name based on category type
     if category == 'top':
         subcategory_name = TOPS_SUBCATEGORIES.get(subcategory, 'unknown')
     elif category == 'bottom':
@@ -98,7 +104,8 @@ def parse_filename(filename, category):
     length = None
     if len(parts) > 2 and parts[2] in ['mini', 'long']:
         length = parts[2]
-    
+
+    #return parsed metadata dictionary
     return {
         'subcategory': subcategory,
         'subcategory_name': subcategory_name,
@@ -108,18 +115,21 @@ def parse_filename(filename, category):
         'is_default': False
     }
 
+#create a mongodb document for a clothing item
 def create_clothing_document(filename, category, image_folder):
     """Create a MongoDB document for a clothing item"""
-    
+    #parse filenmae to get metadata
     metadata = parse_filename(filename, category)
-    
+
+    #return none if parsing failed
     if metadata is None:
         return None
     
     # Construct image path (relative to static directory)
     # Updated to use clothing subfolder
     image_path = f"static/images/clothing/{image_folder}/{filename}"
-    
+
+    #create document with all clothing item data
     document = {
         'category': category,
         'subcategory': metadata['subcategory'],
@@ -131,7 +141,8 @@ def create_clothing_document(filename, category, image_folder):
         'is_default': metadata['is_default'],
         'created_at': datetime.utcnow()
     }
-    
+
+    #return complete doc
     return document
 
 def populate_database():
@@ -226,15 +237,18 @@ def populate_database():
     
     # Insert documents
     total_inserted = 0
-    
+
+    #loop through each category and insert doc
     for category, data in image_data.items():
         print(f"\nProcessing {category}s...")
         folder = data['folder']
         files = data['files']
-        
+
+        #create and insert doc for each image file
         for filename in files:
             document = create_clothing_document(filename, category, folder)
-            
+
+            #insert doc if creation was a success
             if document:
                 result = collection.insert_one(document)
                 print(f"  ✓ Inserted: {filename} (ID: {result.inserted_id})")
@@ -270,7 +284,8 @@ def verify_database():
     print("\n" + "="*50)
     print("VERIFICATION")
     print("="*50)
-    
+
+    #connect to mongodb
     client = MongoClient(MONGODB_URI)
     db = client[DATABASE_NAME]
     collection = db[COLLECTION_NAME]
@@ -319,25 +334,31 @@ def verify_database():
     colors = collection.distinct('color', {'is_default': False})
     colors = [c for c in colors if c is not None]
     print(f"  Available colors: {', '.join(sorted(colors))}")
-    
+
+    #close mongodb connection
     client.close()
     print("\n" + "="*50)
 
+#run script when executed directly
 if __name__ == "__main__":
     print("="*50)
     print("MisMatch Database Population Script")
     print("="*50)
     
     try:
+        #run database population
         populate_database()
+        #verify results
         verify_database()
-        
+
+        #print success message
         print("\n✅ SUCCESS! Your database is ready to use.")
         print("\nNext steps:")
         print("1. Run your Flask application")
         print("2. Test the outfit generation features")
         
     except Exception as e:
+        #print error message if something fails
         print(f"\n❌ ERROR: {e}")
         print("\nPlease check:")
         print("1. MongoDB is running")

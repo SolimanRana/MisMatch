@@ -2,6 +2,14 @@
 Database Query Test Script
 Test various database queries to ensure everything works correctly
 """
+#requirement
+#m2: db images are accessible
+#m6: arrow navigation
+#m7: outfit saving
+#s1: filter by category
+#s2: mismatch button
+#c2: filter by color
+
 
 from pymongo import MongoClient
 import random
@@ -221,12 +229,12 @@ def test_outfit_save_simulation():
         {"$match": {"category": "top", "is_default": False}},
         {"$sample": {"size": 1}}
     ]).next()
-    
+    #random
     bottom = collection.aggregate([
         {"$match": {"category": "bottom", "is_default": False}},
         {"$sample": {"size": 1}}
     ]).next()
-    
+    #random footwear
     footwear = collection.aggregate([
         {"$match": {"category": "footwear", "is_default": False}},
         {"$sample": {"size": 1}}
@@ -241,7 +249,7 @@ def test_outfit_save_simulation():
         "footwear_id": footwear["_id"],
         "created_at": "2025-01-03T10:00:00Z"
     }
-    
+    #print simulated outfit
     print("\n3. Outfit saved to database:")
     print(f"   Name: {outfit_doc['outfit_name']}")
     print(f"   Top: {top['subcategory_name']} ({top['color']})")
@@ -259,42 +267,47 @@ def test_indexes():
     print("\n" + "="*60)
     print("TESTING DATABASE INDEXES")
     print("="*60)
-    
+
+    #connect to mongodb
     client = MongoClient(MONGODB_URI)
     db = client[DATABASE_NAME]
     collection = db.clothing
-    
+
+    #get all indexes on collection
     print("\nIndexes on 'clothing' collection:")
     indexes = collection.index_information()
-    
+
+    #print each index
     for index_name, index_info in indexes.items():
         print(f"\n   {index_name}:")
         print(f"     Keys: {index_info['key']}")
     
     # Check for expected indexes
     expected_indexes = ['category_1', 'color_1', 'is_default_1', 'category_1_color_1']
-    
+
+    #verify each exprected index exists
     for expected in expected_indexes:
         if expected in indexes:
             print(f"\n   ✓ Index '{expected}' exists")
         else:
             print(f"\n   ⚠ Index '{expected}' missing")
-    
+    #close mongodb connection
     client.close()
-
+#main function to run all tests
 def main():
     print("="*60)
     print("MisMatch Database Query Test Suite")
     print("="*60)
     
-    try:
+    try:# run all test functions
         test_basic_queries()
         test_random_outfit_generation()
         test_navigation_arrows()
         test_filtering()
         test_outfit_save_simulation()
         test_indexes()
-        
+
+        #print success message
         print("\n" + "="*60)
         print("✅ ALL TESTS PASSED!")
         print("="*60)
@@ -305,13 +318,16 @@ def main():
         print("3. Build the frontend to display clothing items")
         
     except AssertionError as e:
+        #print assertion error
         print(f"\n❌ TEST FAILED: {e}")
     except Exception as e:
+        #print general error
         print(f"\n❌ ERROR: {e}")
         print("\nPlease check:")
         print("1. MongoDB is running")
         print("2. Database was populated with populate_db.py")
         print("3. Connection settings are correct")
 
+#run main funcion wwhen script is executed
 if __name__ == "__main__":
     main()
