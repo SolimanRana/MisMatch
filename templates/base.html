@@ -1,24 +1,38 @@
+<!--
+
+  Requirements covered:
+  - FR-M1: Web application structure
+  - FR-M3: User session display (when logged in)
+-->
+
 <!DOCTYPE html>
 <html lang="en">   
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}MisMatch{% endblock %}</title>
+  <!-- Base CSS styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <!-- Block for page-specific CSS -->
   {% block extra_css %}{% endblock %}
 </head>
 
 <body>
+<!-- Header section -->
   <header id="header">
     <div class="header-top">
+      <!-- Logo linking to home page -->
       <a href="/">
         <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
       </a>
+      <!-- App tagline -->
       <h1 class="center-text">Your favorite outfit generator</h1>
 
+      <!-- Conditional display based on login status -->
       {% if session.get('username') %}
       <div class="user-info">
         <span>Hello, {{ session.username }}!</span>
+        <!--  Logout button -->
         <a href="/logout" class="logout-btn">Logout</a>
       </div>
       {% else %}
@@ -27,9 +41,11 @@
       </div>
       {% endif %}
     </div>
-  </header>    
-      
+  </header>
+
+<!-- Main content area -->
   <main id="content">
+    <!-- Info section with welcome message and image -->
     <section class="info">
       <div class="info-content">
         <h2>{% block info_title %}Welcome to MisMatch{% endblock %}</h2>
@@ -38,6 +54,7 @@
       </div>
     </section>
 
+    <!-- Authentication section for login/register forms -->
     <section class="auth">
       {% block auth_content %}
       <!-- Content goes here -->
@@ -45,6 +62,7 @@
     </section>
   </main>
 
+<!-- Footer section -->
   <footer class="site-footer">
     <p>
       &copy; 2026 <strong>MisMatch</strong> – 
@@ -53,7 +71,7 @@
       </a>
     </p>
   </footer>
-
+<!-- Block for page-specific JavaScript -->
   {% block extra_js %}{% endblock %}
 </body>
 </html>

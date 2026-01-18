@@ -3,6 +3,15 @@
 {% block title %}Edit Outfit - MisMatch{% endblock %}
 
 {% block content %}
+
+<!--
+
+  Requirements
+  - FR-M8: Edit saved outfits (change clothing items)
+  - FR-S3: Rename saved outfits
+  - FR-M6: Arrow navigation through items
+-->
+
 <div class="dashboard-container">
 
   <!-- Outfit Name -->
@@ -17,10 +26,12 @@
     <div class="clothing-section">
       <h3 class="section-label">TOPS</h3>
       <div class="clothing-box-container">
+        <!--  Left arrow to browse previous tops -->
         <button class="arrow-btn left" onclick="changeClothing('tops', -1)">◀</button>
         <div class="clothing-box" id="tops-box">
           <span class="placeholder">?</span>
         </div>
+        <!-- FR-M6: Right arrow to browse next tops -->
         <button class="arrow-btn right" onclick="changeClothing('tops', 1)">▶</button>
       </div>
     </div>
@@ -41,10 +52,12 @@
     <div class="clothing-section">
       <h3 class="section-label">FOOTWEAR</h3>
       <div class="clothing-box-container">
+        <!--  Left arrow to browse previous footwear -->
         <button class="arrow-btn left" onclick="changeClothing('footwear', -1)">◀</button>
         <div class="clothing-box" id="footwear-box">
           <span class="placeholder">?</span>
         </div>
+        <!--  Right arrow to browse next footwear -->
         <button class="arrow-btn right" onclick="changeClothing('footwear', 1)">▶</button>
       </div>
     </div>
@@ -60,68 +73,86 @@
 
 {% block extra_js %}
 <script>
+  // Load clothing data from database via Flask/Python
   const clothingData = {
     tops: {{ tops | tojson }},
     bottoms: {{ bottoms | tojson }},
     footwear: {{ footwear | tojson }}
   };
 
+  // Store outfit ID for API update call
   const outfitId = "{{ outfit._id }}";
+
+  //  Store original outfit item IDs
   const originalOutfit = {
     top_id: "{{ outfit.top_id }}",
     bottom_id: "{{ outfit.bottom_id }}",
     footwear_id: "{{ outfit.footwear_id }}"
   };
-
+  // Track current index for each category
   let currentIndex = {
     tops: 0,
     bottoms: 0,
     footwear: 0
   };
-
+  // Initialize indices to show current outfit items
   function initializeIndices() {
+    // Find index of current top in clothing data
     clothingData.tops.forEach((item, idx) => {
       if (item._id === originalOutfit.top_id) currentIndex.tops = idx;
     });
+    //Find index of current bottom in clothing data
     clothingData.bottoms.forEach((item, idx) => {
       if (item._id === originalOutfit.bottom_id) currentIndex.bottoms = idx;
     });
+    //Find index of current footwear in clothing data
     clothingData.footwear.forEach((item, idx) => {
       if (item._id === originalOutfit.footwear_id) currentIndex.footwear = idx;
     });
-
+    //display all current items
     displayClothing('tops');
     displayClothing('bottoms');
     displayClothing('footwear');
   }
-
+  //  Change clothing item using arrow navigation
   function changeClothing(category, direction) {
+    // Get items for this category
     const items = clothingData[category];
     if (!items || items.length === 0) return;
 
+    // Update index based on direction (-1 or +1)
     currentIndex[category] += direction;
 
+    // Wrap around to last item if going below 0
     if (currentIndex[category] < 0) {
       currentIndex[category] = items.length - 1;
+      // Wrap around to first item if going past end
     } else if (currentIndex[category] >= items.length) {
       currentIndex[category] = 0;
     }
 
+    // Update display with new item
     displayClothing(category);
   }
 
+  //Display clothing item image in box
   function displayClothing(category) {
+    // Get the box element
     const box = document.getElementById(category + '-box');
+    // Get current item from clothing data
     const item = clothingData[category][currentIndex[category]];
 
+  // Display item image if exists
     if (item) {
       box.innerHTML = '<img src="/' + item.image_path + '" alt="' + item.subcategory_name + '" class="clothing-image">';
     }
   }
-
+  //  Save updated outfit to database
   function saveChanges() {
+    //  Get updated outfit name from input
     const outfitName = document.getElementById('outfit-name').value;
 
+    // Send PUT request to update outfit API
     fetch('/api/update-outfit/' + outfitId, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -134,6 +165,7 @@
     })
     .then(response => response.json())
     .then(data => {
+      // Redirect to saved outfits on success
       if (data.success) {
         alert('Outfit saved!');
         window.location.href = '/saved-outfits';
@@ -141,6 +173,7 @@
     });
   }
 
+  // Initialize page with current outfit items
   initializeIndices();
 </script>
 {% endblock %}

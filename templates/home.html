@@ -1,9 +1,19 @@
+<!--
+
+  The main entry point for MisMatch application.
+
+  Requirements covered:
+  - FR-M1: Web application accessible via browser
+  - FR-M3: Links to login and register pages
+-->
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MisMatch - Virtual Wardrobe</title>
+    <!-- Import Google Fonts for styling -->
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Mono:wght@400;700&family=Bangers&display=swap" rel="stylesheet">
     <style>
         * {
@@ -12,6 +22,7 @@
             box-sizing: border-box;
         }
 
+        /* Define CSS custom properties (color palette) */
         :root {
             --color-bg: #c4b8a8;
             --color-beige: #d9d0c3;
@@ -25,6 +36,7 @@
             --color-white: #f5f2ed;
         }
 
+        /* Body base styles */
         body {
             font-family: 'Space Mono', monospace;
             background: var(--color-bg);
@@ -63,12 +75,14 @@
             background: linear-gradient(to bottom, var(--color-bg), transparent);
         }
 
+        /* Logo styling */
         .logo {
             font-family: 'Bangers', cursive;
             font-size: 3rem;
             letter-spacing: 0.05em;
             color: var(--color-dark);
             text-decoration: none;
+            /* 3D shadow effect */
             text-shadow:
                     3px 3px 0 var(--color-cream),
                     6px 6px 0 var(--color-taupe);
@@ -94,6 +108,7 @@
             transition: all 0.3s ease;
         }
 
+        /*  Login button styling */
         .nav-auth .login {
             color: var(--color-dark);
             padding: 0.8rem 1.5rem;
@@ -199,6 +214,7 @@
             animation-name: slideInRight;
         }
 
+        /* Individual clothing item card */
         .clothing-item {
             width: 130px;
             height: 140px;
@@ -215,10 +231,12 @@
             position: relative;
         }
 
+        /* Left side item colors */
         .clothing-item:nth-child(1) { background: var(--color-cream); }
         .clothing-item:nth-child(2) { background: var(--color-pink-muted); }
         .clothing-item:nth-child(3) { background: var(--color-beige); }
 
+        /* Right side item colors */
         .clothing-side.right .clothing-item:nth-child(1) { background: var(--color-highlight); }
         .clothing-side.right .clothing-item:nth-child(2) { background: var(--color-blue-muted); }
         .clothing-side.right .clothing-item:nth-child(3) { background: var(--color-cream); }
@@ -330,6 +348,7 @@
             transform: translateY(-2px);
         }
 
+        /* Mock grid showing clothing items preview */
         .mock-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -349,6 +368,7 @@
             cursor: pointer;
         }
 
+        /* Mock item individual colors */
         .mock-item:nth-child(1) { background: #e8d8d8; }
         .mock-item:nth-child(2) { background: #d8e4e8; }
         .mock-item:nth-child(3) { background: #e8e4d8; }
@@ -449,7 +469,7 @@
             50% { transform: rotate(3deg); }
         }
 
-        /* Responsive */
+        /* Responsive: Mobile styles */
         @media (max-width: 1200px) {
             .clothing-side {
                 display: none;

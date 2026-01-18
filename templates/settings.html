@@ -7,53 +7,79 @@
 {% endblock %}
 
 {% block content %}
+<!--
+  FR-C3: Drop-down menu for user settings
+  FR-C4: Change username and password
+  FR-C5: Choose avatar from given options
+-->
 <div class="settings-container">
 
     <h2>User Settings</h2>
 
+    <!-- Display error message if present -->
     {% if error %}
     <p class="settings-error">{{ error }}</p>
     {% endif %}
 
+    <!-- Display success message if present -->
     {% if success %}
     <p class="settings-success">{{ success }}</p>
     {% endif %}
 
+    <!-- Container for all settings sections -->
     <div class="settings-sections">
+        <!--  Change Username Section -->
         <div class="settings-section">
             <h3>Change Username</h3>
+            <!-- Form to update username -->
             <form method="POST">
+                <!-- Hidden field to identify which action to perform -->
                 <input type="hidden" name="action" value="change_username">
+                <!-- Input field for new username -->
                 <input type="text" name="new_username" placeholder="New username" required>
+                <!-- Submit button -->
                 <button type="submit">Update Username</button>
             </form>
         </div>
 
+        <!-- FR-C4: Change Password Section -->
         <div class="settings-section">
             <h3>Change Password</h3>
+            <!-- Form to update password -->
             <form method="POST">
+                <!-- Hidden field to identify which action to perform -->
                 <input type="hidden" name="action" value="change_password">
+                <!-- Input field for current password (for verification) -->
                 <input type="password" name="old_password" placeholder="Old password" required>
+                <!-- Input field for new password -->
                 <input type="password" name="new_password" placeholder="New password" required>
+                <!-- Submit button -->
                 <button type="submit">Update Password</button>
             </form>
         </div>
 
+        <!--  Choose Avatar Section -->
         <div class="settings-section">
             <h3>Choose your Avatar</h3>
+            <!-- Form to select and save avatar -->
             <form method="POST">
+                <!-- Hidden field to identify which action to perform -->
                 <input type="hidden" name="action" value="change_avatar">
 
+                <!-- Grid of available avatar emoji options -->
                 <div class="avatar-grid">
+                    <!-- Loop through available avatar emojis -->
                     {% for a in ["🙂","😎","🤓","🧑","👩","👽","🐸","🐱"] %}
                     <label class="avatar-option">
+                        <!-- Radio button for avatar selection -->
                         <input type="radio" name="avatar" value="{{ a }}"
                             {% if avatar == a %}checked{% endif %}>
+                        <!-- Display emoji -->
                         <span class="avatar">{{ a }}</span>
                     </label>
                     {% endfor %}
                 </div>
-
+                <!-- Submit button to save selected avatar -->
                 <button type="submit">Save Avatar</button>
             </form>
         </div>

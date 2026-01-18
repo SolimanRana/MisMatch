@@ -3,29 +3,43 @@
 {% block title %}{{ category | capitalize }} - MisMatch{% endblock %}
 
 {% block extra_css %}
+<!-- Link to wardrobe-specific CSS styles -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/wardrobe.css') }}">
 {% endblock %}
 
 {% block content %}
+<!--
+  FR-S1: Hamburger Menu Filter - Displays all items in selected category
+  This page shows all clothing items when user selects a category from the menu
+-->
 <div style="max-width: 1400px; margin: 0 auto; padding: 40px 20px;">
+    <!-- Page title showing current category -->
     <h2 style="text-align: center; margin-bottom: 30px; color: #5a4a3a; font-size: 2rem;">
         {{ category | capitalize }} Wardrobe
     </h2>
-    
+
+    <!-- Grid container for displaying all items in category -->
     <div class="wardrobe-container">
+        <!-- Check if items exist in this category -->
         {% if items %}
+        <!-- FR-M2 & FR-M5: Loop through and display each clothing item -->
             {% for item in items %}
             <div class="wardrobe-item">
+                <!-- Display clothing image from database -->
                 <img src="/{{ item.image_path }}" alt="{{ item.subcategory_name }}">
+                <!-- Display subcategory name  -->
                 <p>{{ item.subcategory_name | replace('_', ' ') | title }}</p>
+                <!-- Display color if available (for color filtering reference) -->
                 {% if item.color %}
                 <p style="font-size: 0.85rem; color: #8a7a6a;">Color: {{ item.color | capitalize }}</p>
                 {% endif %}
             </div>
             {% endfor %}
         {% else %}
+        <!-- Empty state message when no items in category -->
             <div style="grid-column: span 5; text-align: center; padding: 60px 20px;">
                 <p style="font-size: 1.2rem; color: #8a7a6a;">No {{ category }}s found in your wardrobe yet.</p>
+                <!-- Link to dashboard to add items -->
                 <p style="margin-top: 20px;">
                     <a href="/dashboard" style="color: #5a4a3a; text-decoration: underline;">Go to Generator</a> 
                     to start building your wardrobe!

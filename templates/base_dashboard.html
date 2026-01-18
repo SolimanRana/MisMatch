@@ -1,20 +1,34 @@
+<!--
+
+  Requirements
+  - FR-M1: Web application structure
+  - FR-M3: User session display and logout
+  - FR-S1: Hamburger menu for filtering by category
+  - FR-C3: Drop-down menu for user settings
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}MisMatch{% endblock %}</title>
+  <!-- Base CSS styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <!-- Dashboard-specific CSS styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <!-- Block for page-specific CSS -->
   {% block extra_css %}{% endblock %}
 </head>
 
 <body>
+<!-- Header section -->
   <header id="header">
     <div class="header-top">
       <a href="/dashboard">
         <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="MisMatch Logo" id="logo">
       </a>
+      <!-- App tagline -->
       <h1 class="center-text">Your favorite outfit generator</h1>
       <div class="user-info">
         <span class="username-btn" onclick="toggleUserMenu()">Hello, {{ session.username }}!</span>
@@ -28,6 +42,7 @@
 
     <!-- Navigation Bar -->
     <nav class="dashboard-nav">
+      <!-- Main navigation links -->
       <div class="nav-links">
         <a href="/dashboard" class="nav-link {% if active_page == 'generator' %}active{% endif %}">Generator</a>
         <a href="/saved-outfits" class="nav-link {% if active_page == 'saved-outfits' %}active{% endif %}">Saved Outfits</a>
@@ -41,6 +56,7 @@
           <span></span>
           <span></span>
         </button>
+        <!--  Dropdown menu with clothing categories -->
         <div class="dropdown-menu" id="hamburgerMenu">
           <a href="/wardrobe/top" class="menu-item">Tops</a>
           <a href="/wardrobe/bottom" class="menu-item">Bottoms</a>
@@ -55,6 +71,7 @@
     {% endblock %}
   </main>
 
+  <!-- Footer section -->
   <footer class="site-footer">
     <p>&copy; 2026 <strong>MisMatch</strong> — FH Campus Wien</p>
   </footer>
@@ -68,27 +85,31 @@
 
     // Toggle Hamburger Menu
     function toggleHamburgerMenu() {
+      // Get hamburger menu element
       const menu = document.getElementById("hamburgerMenu");
+      // Toggle show class to display/hide menu
       menu.classList.toggle("show");
     }
 
     // Close the menu if clicking outside
     document.addEventListener("click", function (event) {
+      // Get menu elements
       const hamburgerMenu = document.getElementById("hamburgerMenu");
       const hamburgerBtn = document.querySelector(".hamburger-btn");
       const userMenu = document.getElementById(".userDropdown");
       const userBtn = document.querySelector(".username-btn")
 
+      // Close hamburger menu if clicking outside
       if (hamburgerMenu && hamburgerBtn && !hamburgerMenu.contains(event.target) && !hamburgerBtn.contains(event.target)) {
         hamburgerMenu.classList.remove("show");
       }
-
+      // Close user menu if clicking outside
       if (userMenu && userBtn && !userMenu.contains(event.target) && !userBtn.contains(event.target)) {
         userMenu.classList.remove("show");
       }
     });
   </script>
-
+  <!-- Block for page-specific JavaScript -->
   {% block extra_js %}{% endblock %}
 </body>
 </html>
