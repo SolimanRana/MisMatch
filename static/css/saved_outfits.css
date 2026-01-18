@@ -1,3 +1,14 @@
+/*
+
+
+  Requirements:
+  - FR-M7: Save outfits (display saved outfits)
+  - FR-M8: Edit saved outfits (edit button styling)
+  - FR-M9: Delete saved outfits (delete button styling)
+  - FR-C1: Filter/sort saved outfits (grid layout for sorted display)
+*/
+
+/*  Grid container for displaying saved outfits */
 .outfits-container {
   display: grid;
   grid-template-columns: repeat(2, 300px);
@@ -7,6 +18,7 @@
   margin-left: 50px;
 }
 
+/*  Grid container for displaying saved outfits */
 .outfit-card {
   background: var(--color-cream, #e8e2d8);
   border: 3px solid var(--color-dark, #4a4035);
@@ -24,6 +36,7 @@
   text-align: center;
 }
 
+/*  Container for outfit clothing images */
 .outfit-images {
   display: flex;
   flex-direction: column;
@@ -31,6 +44,7 @@
   margin-bottom: 15px;
 }
 
+/*  Individual clothing item image in outfit */
 .outfit-images img {
   width: 100%;
   height: 120px;
@@ -40,12 +54,14 @@
   background: white;
 }
 
+/*  Container for action buttons */
 .outfit-actions {
   display: flex;
   gap: 10px;
   justify-content: center;
 }
 
+/* Base button styling for edit and delete */
 .edit-btn, .delete-btn {
   padding: 8px 16px;
   border: 2px solid var(--color-dark, #4a4035);
@@ -54,10 +70,12 @@
   font-weight: bold;
 }
 
+
+/* Edit button styling */
 .edit-btn {
   background: var(--color-highlight, #d4a574);
 }
-
+/*  Delete button styling */
 .delete-btn {
   background: #c97373;
   color: white;
@@ -67,6 +85,7 @@
   transform: translateY(-2px);
 }
 
+/* Empty state message when no outfits saved */
 .no-outfits {
   text-align: center;
   padding: 50px;

@@ -2,6 +2,24 @@
    DASHBOARD NAVIGATION
    ============================================ */
 
+
+/*
+
+
+  Requirements:
+  - FR-M1: Web application (dashboard layout)
+  - FR-M4: Default screen with "?" placeholders
+  - FR-M5: Clothing boxes displaying items as images
+  - FR-M6: Arrow buttons for navigation
+  - FR-S1: Hamburger menu for filtering by category
+  - FR-S2: MisMatch button styling
+  - FR-S4: Upload button and modal styling
+  - FR-C2: Color filter panel styling
+  - FR-C3: User dropdown menu
+  - FR-C5: Avatar/emoji circle display
+*/
+
+/* Main navigation bar container */
 .dashboard-nav {
   display: flex;
   justify-content: center;
@@ -12,12 +30,14 @@
   position: relative;
 }
 
+/* Navigation links container */
 .nav-links {
   display: flex;
   gap: 50px;
   margin: 0 auto;
 }
 
+/* Individual navigation link */
 .nav-link {
   color: #5a4a3a;
   text-decoration: none;
@@ -28,10 +48,12 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Navigation link hover state */
 .nav-link:hover {
   background-color: #d9cdb8;
 }
 
+/* Active navigation link */
 .nav-link.active {
   background-color: #c9b99a;
   color: #2a1f17;
@@ -45,6 +67,7 @@
   transform: translateY(-50%);
 }
 
+/* Hamburger button styling */
 .hamburger-btn {
   background-color: #d9cdb8;
   border: 2px solid #4a4035;
@@ -87,10 +110,12 @@
   min-width: 180px;
 }
 
+/* Show dropdown menu when active */
 .dropdown-menu.show {
   display: block;
 }
 
+/* Individual menu item */
 .menu-item {
   display: block;
   padding: 12px 20px;
@@ -148,6 +173,7 @@
   min-width: 150px;
 }
 
+/* Show user dropdown when active */
 .user-dropdown.show {
   display: block;
 }
@@ -191,6 +217,7 @@
    EMOJI CIRCLE
    ============================================ */
 
+/* Avatar circle container */
 .emoji-circle {
   width: 100px;
   height: 100px;
@@ -213,6 +240,7 @@
    CLOTHING ROW (3 Boxen nebeneinander)
    ============================================ */
 
+/* Container for all 3 clothing boxes */
 .clothing-row {
   display: flex;
   gap: 30px;
@@ -228,6 +256,7 @@
   gap: 10px;
 }
 
+/* Category label above each box */
 .section-label {
   text-align: center;
   color: #5a4a3a;
@@ -236,7 +265,7 @@
   letter-spacing: 1px;
   margin: 0;
 }
-
+/* Container for box and arrow buttons */
 .clothing-box-container {
   display: flex;
   align-items: center;
@@ -281,7 +310,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: relative;
 }
-
+/* Default "?" placeholder text */
 .placeholder {
   font-size: 5rem;
   color: #d9cdb8;
@@ -292,6 +321,7 @@
    ACTION BUTTONS (unten, nebeneinander)
    ============================================ */
 
+/* Container for action buttons */
 .action-buttons {
   display: flex;
   gap: 20px;
@@ -299,6 +329,7 @@
   margin-top: 20px;
 }
 
+/* Base styling for all action buttons */
 .mismatch-btn,
 .save-btn,
 .upload-btn {
@@ -338,6 +369,7 @@
   }
 }
 
+/* Mobile devices */
 @media (max-width: 768px) {
   .dashboard-nav {
     flex-direction: column;
@@ -354,12 +386,13 @@
   .nav-link {
     text-align: center;
   }
-
+  /* Stack clothing boxes vertically */
   .clothing-row {
     flex-direction: column;
     align-items: center;
   }
 
+  /* Smaller clothing boxes on mobile */
   .clothing-box {
     width: 220px;
     height: 220px;
@@ -376,7 +409,7 @@
   .upload-btn {
     width: 100%;
   }
-
+  /* Smaller avatar on mobile */
   .emoji-circle {
     width: 80px;
     height: 80px;
@@ -390,7 +423,7 @@
 /* ============================================
    CLOTHING IMAGES
    ============================================ */
-
+/* Clothing item image inside box */
 .clothing-image {
   max-width: 100%;
   max-height: 100%;
@@ -441,12 +474,12 @@
   max-width: 400px;
   position: relative;
 }
-
+/* Modal heading */
 .modal-content h2 {
   margin-bottom: 20px;
   text-align: center;
 }
-
+/* Modal close button */
 .close-btn {
   position: absolute;
   top: 10px;
@@ -473,7 +506,7 @@
   border-radius: 5px;
 }
 
-/* Delete Button für Custom Items */
+/* Delete Button for Custom Items */
 .delete-item-btn {
   position: absolute;
   top: 5px;

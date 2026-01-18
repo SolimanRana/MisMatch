@@ -2,6 +2,15 @@
    SETTINGS PAGE
    ============================================ */
 
+
+/*
+
+  Requirements:
+  - FR-C3: Drop-down menu for user settings (settings page styling)
+  - FR-C4: Change username and password (form styling)
+  - FR-C5: Choose avatar from given options (avatar grid styling)
+*/
+
 /* Page container */
 .settings-container {
   max-width: 1400px;
@@ -30,6 +39,7 @@
   font-family: 'Arial', 'Helvetica', sans-serif;
 }
 
+/* Success message styling */
 .settings-success {
   color: #3c763d;
   background: #dff0d8;
@@ -77,6 +87,7 @@
   flex: 1;
 }
 
+/*  Input field styling for text and password inputs */
 .settings-section input[type="text"],
 .settings-section input[type="password"] {
   padding: 12px;
@@ -94,6 +105,7 @@
   border-color: #c9b99a;
 }
 
+/* Submit button styling */
 .settings-section button {
   margin-top: auto;
   padding: 12px 30px;
@@ -111,7 +123,7 @@
 .settings-section button:hover {
   background-color: #c9b99a;
 }
-
+/* Button active/click state */
 .settings-section button:active {
   transform: scale(0.98);
 }
@@ -127,16 +139,16 @@
   margin: 20px 0;
   flex: 1;
 }
-
+/* Avatar option container */
 .avatar-option {
   display: flex;
   justify-content: center;
 }
-
+/* Hide default radio button */
 .avatar-option input {
   display: none;
 }
-
+/*  Avatar emoji display */
 .avatar {
   font-size: 2.5rem;
   width: 70px;
@@ -150,7 +162,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease, border-color 0.3s ease;
 }
-
+/*  Selected avatar styling */
 .avatar-option input:checked + .avatar {
   background: #c9b99a;
   border-color: #3d3027;

@@ -1,5 +1,12 @@
 /* GLOBALE STYLES */
 
+/*
+  Requirements
+  - FR-M1: Web application (global layout and styling)
+  - FR-M3: Login/Register forms styling
+*/
+
+/* Base body styling */
 body {
   font-family: 'Arial', 'Helvetica', sans-serif;
   background-color: #f5f1e8;
@@ -17,6 +24,7 @@ header {
   border-bottom: 2px solid #d4c5a9;
 }
 
+/* Header top section with logo, title, and user info */
 .header-top {
   display: flex;
   align-items: center;
@@ -25,12 +33,14 @@ header {
   gap: 30px;
 }
 
+/* Logo image */
 #logo {
   height: 100px;
   width: auto;
   flex-shrink: 0;
 }
 
+/* Center tagline text */
 .center-text {
   flex: 1;
   font-size: 1.4rem;
@@ -49,11 +59,13 @@ header {
   flex-shrink: 0;
 }
 
+
 .user-info span {
   font-weight: 600;
   color: #5a4a3a;
 }
 
+/* Logout button styling */
 .logout-btn {
   padding: 8px 20px;
   background-color: #d9cdb8;
@@ -79,6 +91,7 @@ nav {
   padding: 10px 0;
 }
 
+/* Navigation buttons */
 nav button {
   background-color: transparent;
   color: #5a4a3a;
@@ -94,6 +107,7 @@ nav button:hover {
   color: #3d3027;
 }
 
+/* Active navigation button */
 nav button.active {
   background-color: #c9b99a;
   color: #3d3027;
@@ -108,12 +122,14 @@ main {
   flex: 1;
 }
 
+/* Main content with padding */
 main#content {
   padding: 20px;
 }
 
 /* INFO SECTION (linke Seite) */
 
+/* Info section container */
 .info {
   background-color: #d9cdb8;
   color: #3d3027;
@@ -135,6 +151,7 @@ main#content {
 
 /* AUTH SECTION (rechte Seite - Login/Signup) */
 
+/* Auth section container */
 .auth {
   flex: 1;
   padding: 40px;
@@ -156,7 +173,7 @@ main#content {
   flex-direction: column;
   gap: 5px;
 }
-
+/* Form label styling */
 .auth label {
   font-weight: bold;
   margin-bottom: 5px;
@@ -164,6 +181,7 @@ main#content {
   color: #5a4a3a;
 }
 
+/* Form input field styling */
 .auth input {
   padding: 12px;
   margin-bottom: 15px;
@@ -183,12 +201,13 @@ main#content {
   box-shadow: 0 0 5px rgba(201, 185, 154, 0.4);
   background-color: #f0e6d6;
 }
-
+/* Input placeholder text */
 .auth input::placeholder {
   color: #8a7a6a;
   opacity: 0.7;
 }
 
+/* Submit button styling */
 .auth button {
   padding: 12px;
   background-color: #d9cdb8;
@@ -213,6 +232,7 @@ main#content {
 
 /* LINKS (Forgot Password / Registration) */
 
+/* Links container */
 .links {
   display: flex;
   justify-content: space-between;
@@ -233,6 +253,7 @@ main#content {
 
 /* FOOTER*/
 
+/* Footer container */
 footer.site-footer {
   background-color: #d9cdb8;
   padding: 15px 20px;
@@ -258,29 +279,30 @@ footer.site-footer a:hover {
 /* RESPONSIVE DESIGN - MOBILE */
 
 @media (max-width: 768px) {
-  /* Header anpassen */
+  /* Stack header vertically */
   .header-top {
     flex-direction: column;
     align-items: center;
     padding: 15px;
     gap: 15px;
   }
-
+  /* Smaller logo on mobile */
   #logo {
     height: 80px;
   }
-
+  /* Smaller tagline on mobile */
   .center-text {
     font-size: 1.1rem;
     padding: 0;
   }
 
+  /* Stack user info vertically */
   .user-info {
     flex-direction: column;
     gap: 10px;
   }
 
-  /* layout auf spalte umstellen */
+  /* Stack main content vertically */
   main {
     flex-direction: column;
   }
@@ -298,6 +320,7 @@ footer.site-footer a:hover {
     box-sizing: border-box;
   }
 
+  /* Smaller headings on mobile */
   .info h2 {
     font-size: 1.2rem;
   }
@@ -320,6 +343,7 @@ footer.site-footer a:hover {
 /* SEHR KLEINE BILDSCHIRME */
 
 @media (max-width: 480px) {
+  /* Reduce padding on small screens */
   .auth {
     padding: 15px;
   }
@@ -333,6 +357,7 @@ footer.site-footer a:hover {
     font-size: 1.05rem;
   }
 
+  /* Even smaller logo */
   #logo {
     height: 60px;
   }
@@ -340,6 +365,7 @@ footer.site-footer a:hover {
 
 /* OUTFIT IMAGE (Login-Seite) */
 
+/* Info content centering */
 .info-content {
   display: flex;
   flex-direction: column;
@@ -357,6 +383,7 @@ footer.site-footer a:hover {
   font-size: 1.1rem;
 }
 
+/* Decorative outfit image on login page */
 .outfit-image {
   max-width: 100%;
   width: 400px;
@@ -365,7 +392,7 @@ footer.site-footer a:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Anpassung */
+/* Responsive outfit image */
 @media (max-width: 768px) {
   .outfit-image {
     width: 80%;
