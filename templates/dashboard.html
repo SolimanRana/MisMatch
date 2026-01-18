@@ -12,21 +12,23 @@
     </span>
   </div>
 
-  <!-- Clothing Boxes (nebeneinander) -->
+  <!-- Clothing Boxes (in a row) -->
   <div class="clothing-row">
     <!-- TOPS Box -->
     <div class="clothing-section">
       <h3 class="section-label">TOPS</h3>
 
       <div class="clothing-box-container">
+        <!-- left arrow next to Top box -->
         <button class="arrow-btn left" onclick="changeClothing('tops', -1)">◀</button>
 
+        <!-- "?" as a placeholder in the top box -->
         <div class="clothing-box clickable"
              id="tops-box"
              onclick="togglePanel('tops')">
           <span class="placeholder">?</span>
         </div>
-
+        <!-- right arrow next to Top box -->
         <button class="arrow-btn right" onclick="changeClothing('tops', 1)">▶</button>
       </div>
 
@@ -48,14 +50,17 @@
       <h3 class="section-label">BOTTOMS</h3>
 
       <div class="clothing-box-container">
+        <!-- left arrow next to Top box -->
         <button class="arrow-btn left" onclick="changeClothing('bottoms', -1)">◀</button>
 
+        <!-- "?" as a placeholder in the bottoms box -->
         <div class="clothing-box clickable"
              id="bottoms-box"
              onclick="togglePanel('bottoms')">
           <span class="placeholder">?</span>
         </div>
 
+        <!-- right arrow next to Top box -->
         <button class="arrow-btn right" onclick="changeClothing('bottoms', 1)">▶</button>
       </div>
 
@@ -77,14 +82,17 @@
       <h3 class="section-label">FOOTWEAR</h3>
 
       <div class="clothing-box-container">
+        <!-- left arrow next to footwear box -->
         <button class="arrow-btn left" onclick="changeClothing('footwear', -1)">◀</button>
 
+        <!-- "?" as a placeholder in the footwear box -->
         <div class="clothing-box clickable"
              id="footwear-box"
              onclick="togglePanel('footwear')">
           <span class="placeholder">?</span>
         </div>
 
+        <!-- right arrow next to footwear box -->
         <button class="arrow-btn right" onclick="changeClothing('footwear', 1)">▶</button>
       </div>
 
@@ -102,7 +110,7 @@
     </div>
   </div>
 
-  <!-- Buttons bottom (nebeneinander, mittig) -->
+  <!-- Buttons (MisMatch, Save Outfit & Upload) -->
   <div class="action-buttons">
     <button class="mismatch-btn" onclick="generateMismatchOutfit()">MisMatch</button>
     <button class="save-btn" onclick="saveOutfit()">Save Outfit</button>
@@ -110,23 +118,31 @@
   </div>
 </div>
 
-<!-- Upload Modal -->
+<!-- Upload Modal, allows user to upload their own clothing items -->
 <div id="upload-modal" class="modal" style="display: none;">
   <div class="modal-content">
+
+  <!-- close button for modal -->
     <span class="close-btn" onclick="closeUploadModal()">&times;</span>
     <h2>Upload Your Clothing</h2>
+
+    <!-- upload form with file input & category selection -->
     <form id="upload-form" enctype="multipart/form-data">
       <div class="form-group">
         <label>Category:</label>
         <select id="upload-category" required>
           <option value="">Select category...</option>
+          <!-- user must select the category of the item  -->
           <option value="top">Top</option>
           <option value="bottom">Bottom</option>
           <option value="footwear">Footwear</option>
         </select>
       </div>
+
+      <!-- file input for uploading images -->
       <div class="form-group">
         <label>Image:</label>
+        <!-- only accept PNG, JPG & JPEG formats -->
         <input type="file" id="upload-image" accept="image/png, image/jpeg, image/jpg" required>
       </div>
       <button type="submit" class="save-btn">Upload</button>
@@ -136,16 +152,16 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- Clothing Data aus Python -->
+<!-- Clothing Data from Python -->
 <script>
-  // Daten von Flask/Python in JavaScript verfügbar machen
+  // make data from flask/python in JavaScript available
   const clothingData = {
-    tops: {{ tops | tojson }},
-    bottoms: {{ bottoms | tojson }},
-    footwear: {{ footwear | tojson }}
+    tops: {{ tops | tojson }}, // all tops form db
+    bottoms: {{ bottoms | tojson }}, // all bottoms from db
+    footwear: {{ footwear | tojson }} // all footwear from db
   };
 </script>
 
-<!-- JavaScript File -->
+<!-- JavaScript File containing interactive features -->
 <script src="{{ url_for('static', filename='js/generator.js') }}"></script>
 {% endblock %}
