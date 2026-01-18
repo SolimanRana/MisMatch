@@ -6,8 +6,10 @@ class OutfitService:
         self.collection = db.outfits
         self.clothing = db.clothing
 
+    # FR-M7: The user must be able to save an outfit...
     def save_outfit(self, user_id, outfit_name, top_id, bottom_id, footwear_id):
         """Save a new outfit"""
+        # generate default outfit name if not provided
         if not outfit_name or outfit_name.strip() == "" or outfit_name == "My Outfit":
           count = self.collection.count_documents({"user_id": user_id})
           outfit_name = f"My Outfit {count + 1}"  
@@ -23,6 +25,8 @@ class OutfitService:
         result = self.collection.insert_one(document)
         return str(result.inserted_id)
 
+    # Retrieve all saved outfits for a user
+    # sort outfits by newest, oldest or A-Z
     def get_user_outfits(self, user_id, sort="newest"):
         query = {"user_id": user_id}
         
@@ -54,6 +58,8 @@ class OutfitService:
             outfit['_id'] = str(outfit['_id'])
         return outfit
 
+    # FR-M8: The user must be able to edit saved outfits and save those made edits
+    # FR-S3: The user should be able to rename the already saved outfits
     def update_outfit(self, outfit_id, outfit_name, top_id, bottom_id, footwear_id):
         """Update an existing outfit (FR-M8)"""
         self.collection.update_one(
@@ -67,6 +73,7 @@ class OutfitService:
             }}
         )
 
+    # FR-M9: The user must be able to delete saved outfits. 
     def delete_outfit(self, outfit_id):
         """Delete an outfit"""
         self.collection.delete_one({"_id": ObjectId(outfit_id)})

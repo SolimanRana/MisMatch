@@ -1,6 +1,6 @@
 // Shuffle-Function (Fisher-Yates Algorithm)
 function shuffleArray(array) {
-  const shuffled = [...array]; // Kcreate copy
+  const shuffled = [...array]; // create copy
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -8,19 +8,23 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-// randomize clothing data - randomize when loaded (only one time)
+// FR-S2: The user should be able to use a “MisMatch” button, to create an outfit with randomly chosen clothing items from our list. 
+// randomize clothing data for MisMatch button functionality
 const shuffledClothing = {
   tops: shuffleArray(clothingData.tops),
   bottoms: shuffleArray(clothingData.bottoms),
   footwear: shuffleArray(clothingData.footwear)
 };
 
+// FR-C2: The user could be able to filter the clothing items by colour
+// active clothing array for color filtering
 const activeClothing = {
   tops: [...shuffledClothing.tops],
   bottoms: [...shuffledClothing.bottoms],
   footwear: [...shuffledClothing.footwear],
 }
 
+// FR-M4: The app must start with a default screen – containing question marks “?” instead of clothing items in the given boxes. 
 // current index for each category
 let currentIndex = {
   tops: -1,      // -1 = no item yet (box shows "?") 
@@ -30,8 +34,8 @@ let currentIndex = {
 
 let modalCategory = null;
 
-
-// function to change item 
+// FR-M6: The user must be able to move from one item to another using arrows, displayed to the left and right of the boxes containing the images of the clothing items
+// function to change item when arrow buttons are clicked
 function changeClothing(category, direction) {
   const items = shuffledClothing[category];
   
@@ -40,11 +44,11 @@ function changeClothing(category, direction) {
     return;
   }
 
-  // First click: start with index = 0
+  // First click: start with index = 0 (replace ? with first item)
   if (currentIndex[category] === -1) {
     currentIndex[category] = 0;
   } else {
-    // change index (mit wrap-around)
+    // change index (with wrap-around)
     currentIndex[category] += direction;
     
     // Ring system - end and start are connected
@@ -54,12 +58,12 @@ function changeClothing(category, direction) {
       currentIndex[category] = 0; // to the first item
     }
   }
-
+ 
   // show image
   displayClothing(category);
 }
-
-/// function to show image
+// FR-M5: The user must be able to see a screen containing boxes displaying the clothing items as images in said boxes 
+// function to show image
 function displayClothing(category, forcedItem = null) {
   const box = document.getElementById(`${category}-box`);
 
@@ -69,6 +73,7 @@ function displayClothing(category, forcedItem = null) {
     item = forcedItem;
   } else {
     const index = currentIndex[category];
+    // show "?"
     if (index === -1) {
       box.innerHTML = '<span class="placeholder">?</span>';
       return;
@@ -77,7 +82,7 @@ function displayClothing(category, forcedItem = null) {
   }
 
   const isCustom = item.subcategory === 'custom';
-
+  // Show delete button for custom uploaded items
   box.innerHTML = `
     ${isCustom ? `<button class="delete-btn" onclick="deleteClothingItem('${item._id}', '${category}')">🗑️</button>` : ''}
     <img src="/${item.image_path}" class="clothing-image">
@@ -91,7 +96,7 @@ console.log('Tops:', shuffledClothing.tops.length);
 console.log('Bottoms:', shuffledClothing.bottoms.length);
 console.log('Footwear:', shuffledClothing.footwear.length);
 
-// MisMatch Button 
+// MisMatch Button - create outfit with randomly chosen clothing items 
 function generateMismatchOutfit() {
   const categories = ['tops', 'bottoms', 'footwear'];
 
@@ -100,11 +105,12 @@ function generateMismatchOutfit() {
 
     if (!items || items.length === 0) return;
 
+    // select random item from each category
     const randomItem = items[Math.floor(Math.random() * items.length)];
 
     displayClothing(category, randomItem);
 
-    // optional: Index sauber setzen für Save-Logik
+    // update index for save functionality
     currentIndex[category] = items.findIndex(
       i => i._id === randomItem._id
     );
@@ -113,6 +119,7 @@ function generateMismatchOutfit() {
   console.log('MisMatch Outfit generated!');
 }
 
+// FR-M7: The user must be able to save an outfit...
 // Save Outfit Function
 function saveOutfit() {
   // Check if all items are selected
@@ -124,6 +131,7 @@ function saveOutfit() {
   const outfitName = prompt('Enter a name for your outfit:', 'My Outfit');
   if (!outfitName) return;
 
+  // create outfit data to save
   const outfitData = {
     outfit_name: outfitName,
     top_id: shuffledClothing.tops[currentIndex.tops]._id,
@@ -131,6 +139,7 @@ function saveOutfit() {
     footwear_id: shuffledClothing.footwear[currentIndex.footwear]._id
   };
 
+  // send save req to server
   fetch('/api/save-outfit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -149,7 +158,8 @@ function saveOutfit() {
       });
 }
 
-// Upload Modal Functions (FR-S4)
+// FR-S4: The app must include a camera upload feature, so the user can include their own clothing items
+// Upload Modal Functions
 function openUploadModal() {
   document.getElementById('upload-modal').style.display = 'flex';
 }
@@ -167,6 +177,7 @@ document.getElementById('upload-form').addEventListener('submit', function(e) {
   formData.append('category', document.getElementById('upload-category').value);
   formData.append('image', document.getElementById('upload-image').files[0]);
 
+  // Upload custom clothing item
   fetch('/api/upload-clothing', {
     method: 'POST',
     body: formData
